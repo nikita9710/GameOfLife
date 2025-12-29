@@ -1,0 +1,7 @@
+#ifndef GAMEOFLIFE_COMMON_H
+#define GAMEOFLIFE_COMMON_H
+
+#define ALIVE 1
+#define DEAD 0
+
+#endif //GAMEOFLIFE_COMMON_H
