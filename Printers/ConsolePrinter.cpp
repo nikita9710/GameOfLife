@@ -1,9 +1,4 @@
-//
-// Created by nikita on 12/29/25.
-//
-
 #include "ConsolePrinter.h"
-
 #include <cstdlib>
 #include <iostream>
 

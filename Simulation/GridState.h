@@ -3,7 +3,7 @@
 #include <vector>
 #include <array>
 
-#include "Common.h"
+#include "../Common.h"
 
 class GridState {
 public:

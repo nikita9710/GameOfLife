@@ -3,14 +3,13 @@
 #include <memory>
 
 #include "GridState.h"
-#include "TickStrategies/TickStrategy.h"
 
-class Grid {
+class TickStrategy;
+
+class Simulation {
 public:
-    Grid(const int size, std::unique_ptr<TickStrategy> strategy) : currentState_(size), nextState_(size){
-        strategy_ = std::move(strategy);
-        currentState_.RandomizeState();
-    }
+    Simulation(int size, std::unique_ptr<TickStrategy> strategy);
+
     void Tick();
 
     const GridState& GetState() const {

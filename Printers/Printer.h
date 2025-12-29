@@ -1,6 +1,6 @@
 #ifndef GAMEOFLIFE_PRINTER_H
 #define GAMEOFLIFE_PRINTER_H
-#include "../GridState.h"
+#include "../Simulation/GridState.h"
 
 class Printer {
 public:
