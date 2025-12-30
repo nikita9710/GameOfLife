@@ -7,7 +7,8 @@ class GridState;
 
 class ConsolePrinter : public Printer {
 public:
-    void Print(const GridState &grid_state) const override;
+    void PrintGrid(const GridState &grid_state) const override;
+    void PrintStats(double lastFrameTime) const override;
 };
 
 
