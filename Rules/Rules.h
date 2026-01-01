@@ -1,5 +1,6 @@
-#ifndef GAMEOFLIFE_RULES_H
-#define GAMEOFLIFE_RULES_H
+#pragma once
+
+namespace gol {
 class Rules {
 public:
     virtual ~Rules() = default;
@@ -8,4 +9,4 @@ public:
 
     virtual bool IsNextStateBirth(int aliveNeighbours) = 0;
 };
-#endif //GAMEOFLIFE_RULES_H
+}

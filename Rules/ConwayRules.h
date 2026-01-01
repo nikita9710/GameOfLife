@@ -1,8 +1,7 @@
-#ifndef GAMEOFLIFE_CONWAYRULES_H
-#define GAMEOFLIFE_CONWAYRULES_H
+#pragma once
 #include "Rules.h"
 
-
+namespace gol {
 class ConwayRules : public Rules {
 public:
     bool IsNextStateStable(int aliveNeighbours) override {
@@ -13,6 +12,4 @@ public:
         return aliveNeighbours == 3;
     }
 };
-
-
-#endif //GAMEOFLIFE_CONWAYRULES_H
+}

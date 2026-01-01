@@ -1,7 +1,7 @@
-#ifndef GAMEOFLIFE_SEEDSRULES_H
-#define GAMEOFLIFE_SEEDSRULES_H
+#pragma once
 #include "Rules.h"
 
+namespace gol {
 class SeedsRules : public Rules {
 public:
     bool IsNextStateStable(int aliveNeighbours) override {
@@ -12,4 +12,4 @@ public:
         return aliveNeighbours == 2;
     }
 };
-#endif //GAMEOFLIFE_SEEDSRULES_H
+}

@@ -1,7 +1,7 @@
 #include "ConsolePrinter.h"
 #include <cstdlib>
 #include <iostream>
-
+namespace gol {
 void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
     system("clear");
     if (grid_state.GetSize() > 50) {
@@ -21,4 +21,5 @@ void ConsolePrinter::PrintStats(double lastFrameTime) const {
     std::cout << "-----------------------------------------------------" << std::endl;
     std::cout << "last frame time " << lastFrameTime << "ms"  << std::endl;
     std::cout << "-----------------------------------------------------" << std::endl;
+}
 }

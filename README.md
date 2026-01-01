@@ -1,5 +1,5 @@
 todo:
-predefined initial state, seed
+~~predefined initial state~~, ascii to state, rle to state, seed
 unit tests
 console commands for quick settings (-c console, -g gui, -v verbose, etc)
 edges rule (toroidal vs clamped)

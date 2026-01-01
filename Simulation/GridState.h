@@ -1,21 +1,32 @@
-#ifndef GAMEOFLIFE_GRIDSTATE_H
-#define GAMEOFLIFE_GRIDSTATE_H
+#pragma once
 #include <vector>
 #include <array>
 
 #include "../Common.h"
 
+namespace gol {
 class GridState {
 public:
-    GridState(int size) : size_(size), state_(size_ * size_, DEAD) { }
+    GridState(int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
 
-    int& operator[](int index) { return state_[index]; }
-    const int& operator[](int index) const { return state_[index]; }
+    static GridState CreateFromState(const std::vector<Cell>& gridState, int gridSize);
+
+    static GridState CreateRandom(int gridSize, int aliveCellChance = DefaultAliveChance);
 
     int GetNeighboringAliveCellsCount(int x, int y) const;
 
+    void Swap(GridState &other);
+
+    // chance from 0 to 100
+    void RandomizeState(int aliveCellChance);
+
+    void ResetState();
+
+    Cell& operator[](int index) { return state_[index]; }
+    const Cell& operator[](int index) const { return state_[index]; }
+
     bool IsCellAlive(const int index) const {
-        return state_[index] == ALIVE;
+        return state_[index] == Cell::Alive;
     }
 
     bool IsCellAlive(const int x, const int y) const {
@@ -26,17 +37,13 @@ public:
         return size_;
     }
 
-    std::vector<int>& GetData() {
+    const std::vector<Cell>& GetData() const {
         return state_;
     }
-
-    void Swap(GridState &other);
-
-    void RandomizeState();
 private:
     const int size_;
 
-    std::vector<int> state_;
+    std::vector<Cell> state_;
 
     struct offset {
         int dx;
@@ -49,6 +56,4 @@ private:
         { 1, -1}, { 1,  0}, { 1,  1}
     }};
 };
-
-
-#endif //GAMEOFLIFE_GRIDSTATE_H
+}

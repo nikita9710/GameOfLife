@@ -1,9 +1,9 @@
-#ifndef GAMEOFLIFE_GRID_H
-#define GAMEOFLIFE_GRID_H
+#pragma once
 #include <memory>
 
 #include "GridState.h"
 
+namespace gol {
 class TickStrategy;
 
 class Simulation {
@@ -15,6 +15,12 @@ public:
     const GridState& GetState() const {
         return currentState_;
     }
+
+    void SetState(GridState newState);
+
+    void RandomizeState(int aliveChance = DefaultAliveChance);
+
+    void ResetState();
 private:
     std::unique_ptr<TickStrategy> strategy_;
 
@@ -22,6 +28,4 @@ private:
 
     GridState nextState_;
 };
-
-
-#endif //GAMEOFLIFE_GRID_H
+}

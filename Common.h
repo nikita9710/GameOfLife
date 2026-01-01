@@ -1,7 +1,11 @@
-#ifndef GAMEOFLIFE_COMMON_H
-#define GAMEOFLIFE_COMMON_H
+#pragma once
+#include <cstdint>
 
-#define ALIVE 1
-#define DEAD 0
+namespace gol {
+constexpr int DefaultAliveChance = 70;
 
-#endif //GAMEOFLIFE_COMMON_H
+enum class Cell : uint8_t {
+    Dead = 0,
+    Alive = 1
+};
+}

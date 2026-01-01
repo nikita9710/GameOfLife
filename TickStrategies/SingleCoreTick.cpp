@@ -1,6 +1,7 @@
 #include "SingleCoreTick.h"
 #include "../Rules/Rules.h"
 
+namespace gol {
 SingleCoreTick::SingleCoreTick(std::unique_ptr<Rules> rules): TickStrategy(std::move(rules)) { }
 
 void SingleCoreTick::Tick(const GridState &current, GridState &next) {
@@ -12,7 +13,8 @@ void SingleCoreTick::Tick(const GridState &current, GridState &next) {
             const bool alive = current.IsCellAlive(index);
             next[index] =
                 (alive && rules_->IsNextStateStable(aliveNeighbours)) ||
-                (!alive && rules_->IsNextStateBirth(aliveNeighbours)) ? ALIVE : DEAD;
+                (!alive && rules_->IsNextStateBirth(aliveNeighbours)) ? Cell::Alive : Cell::Dead;
         }
     }
+}
 }

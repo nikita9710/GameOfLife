@@ -1,8 +1,7 @@
-#ifndef GAMEOFLIFE_SINGLECORETICK_H
-#define GAMEOFLIFE_SINGLECORETICK_H
+#pragma once
 #include "TickStrategy.h"
 
-
+namespace gol {
 class SingleCoreTick : public TickStrategy {
 public:
     explicit SingleCoreTick(std::unique_ptr<Rules> rules);
@@ -11,5 +10,4 @@ public:
               GridState &next) override;
 
 };
-
-#endif //GAMEOFLIFE_SINGLECORETICK_H
+}
