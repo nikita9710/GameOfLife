@@ -11,7 +11,7 @@ void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
     const int size = grid_state.GetSize();
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            std::cout << (grid_state.IsCellAlive(i,j) ? "■" : "□");
+            std::cout << (grid_state.IsCellAlive(i,j) ? AliveAscii : DeadAscii);
         }
         std::cout << std::endl;
     }

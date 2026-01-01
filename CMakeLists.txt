@@ -23,4 +23,6 @@ add_executable(GameOfLife main.cpp
         src/Rules/Rules.h
         src/Rules/ConwayRules.h
         src/Rules/SeedsRules.h
-        src/Rules/ReplicatorRules.h)
+        src/Rules/ReplicatorRules.h
+        src/Utils/GridStateFromASCII.cpp
+        src/Utils/GridStateFromASCII.h)
