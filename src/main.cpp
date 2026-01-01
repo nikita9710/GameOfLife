@@ -2,12 +2,12 @@
 #include <thread>
 #include <chrono>
 
-#include "src/Simulation/Simulation.h"
-#include "src/Printers/ConsolePrinter.h"
-#include "src/Rules/ConwayRules.h"
-#include "src/Rules/SeedsRules.h"
-#include "src/Rules/ReplicatorRules.h"
-#include "src/TickStrategies/SingleCoreTick.h"
+#include "Simulation/Simulation.h"
+#include "Printers/ConsolePrinter.h"
+#include "Rules/ConwayRules.h"
+#include "Rules/SeedsRules.h"
+#include "Rules/ReplicatorRules.h"
+#include "TickStrategies/SingleCoreTick.h"
 
 int main() {
     constexpr int size = 50;
