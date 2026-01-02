@@ -3,24 +3,13 @@ project(GameOfLife)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(GameOfLife main.cpp
-        Simulation/Simulation.cpp
-        Simulation/Simulation.h
-        TickStrategies/TickStrategy.cpp
-        TickStrategies/TickStrategy.h
-        Common.h
-        TickStrategies/SingleCoreTick.cpp
-        TickStrategies/SingleCoreTick.h
-        TickStrategies/GPUTick.cpp
-        TickStrategies/GPUTick.h
-        TickStrategies/MultiCoreTick.cpp
-        TickStrategies/MultiCoreTick.h
-        Simulation/GridState.cpp
-        Simulation/GridState.h
-        Printers/Printer.h
-        Printers/ConsolePrinter.cpp
-        Printers/ConsolePrinter.h
-        Rules/Rules.h
-        Rules/ConwayRules.h
-        Rules/SeedsRules.h
-        Rules/ReplicatorRules.h)
+Include(FetchContent)
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.8.1
+)
+FetchContent_MakeAvailable(Catch2)
+
+add_subdirectory(src)
+add_subdirectory(tests)

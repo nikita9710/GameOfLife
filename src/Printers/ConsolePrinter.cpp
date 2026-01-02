@@ -1,7 +1,7 @@
 #include "ConsolePrinter.h"
 #include <cstdlib>
 #include <iostream>
-
+namespace gol {
 void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
     system("clear");
     if (grid_state.GetSize() > 50) {
@@ -11,7 +11,7 @@ void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
     const int size = grid_state.GetSize();
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            std::cout << (grid_state.IsCellAlive(i,j) ? "■" : "□");
+            std::cout << (grid_state.IsCellAlive(i,j) ? AliveAscii : DeadAscii);
         }
         std::cout << std::endl;
     }
@@ -21,4 +21,5 @@ void ConsolePrinter::PrintStats(double lastFrameTime) const {
     std::cout << "-----------------------------------------------------" << std::endl;
     std::cout << "last frame time " << lastFrameTime << "ms"  << std::endl;
     std::cout << "-----------------------------------------------------" << std::endl;
+}
 }

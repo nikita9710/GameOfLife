@@ -1,7 +1,7 @@
-#ifndef GAMEOFLIFE_PRINTER_H
-#define GAMEOFLIFE_PRINTER_H
+#pragma once
 #include "../Simulation/GridState.h"
 
+namespace gol {
 class Printer {
 public:
     virtual ~Printer() = default;
@@ -10,4 +10,4 @@ public:
 
     virtual void PrintStats(double lastFrameTime) const = 0;
 };
-#endif //GAMEOFLIFE_PRINTER_H
+}

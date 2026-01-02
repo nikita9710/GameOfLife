@@ -1,19 +1,18 @@
-#ifndef GAMEOFLIFE_TICKSTRATEGY_H
-#define GAMEOFLIFE_TICKSTRATEGY_H
-
+#pragma once
 #include <memory>
 
 #include "../Simulation/GridState.h"
 
+namespace gol {
 class Rules;
 
 class TickStrategy {
 public:
-    TickStrategy(std::unique_ptr<Rules> rules);;
+    TickStrategy(std::unique_ptr<Rules> rules);
     virtual ~TickStrategy() = default;
     virtual void Tick(const GridState &current,
-                      GridState &next) = 0;
+                      GridState &next) const = 0;
 protected:
     std::unique_ptr<Rules> rules_;
 };
-#endif //GAMEOFLIFE_TICKSTRATEGY_H
+}
