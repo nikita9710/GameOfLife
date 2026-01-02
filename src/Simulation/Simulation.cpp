@@ -12,7 +12,7 @@ void Simulation::Tick() {
     currentState_.Swap(nextState_);
 }
 
-void Simulation::RandomizeState(const int aliveChance) {
+void Simulation::RandomizeState(const float aliveChance) {
     currentState_.RandomizeState(aliveChance);
 }
 

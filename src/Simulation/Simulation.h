@@ -18,7 +18,7 @@ public:
 
     void SetState(GridState newState);
 
-    void RandomizeState(int aliveChance = DefaultAliveChance);
+    void RandomizeState(float aliveChance = DefaultAliveChance);
 
     void ResetState();
 private:

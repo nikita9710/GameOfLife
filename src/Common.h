@@ -2,7 +2,7 @@
 #include <cstdint>
 
 namespace gol {
-constexpr int DefaultAliveChance = 70;
+constexpr float DefaultAliveChance = 0.3;
 
 inline constexpr char AliveAscii = '#';
 inline constexpr char DeadAscii = '.';

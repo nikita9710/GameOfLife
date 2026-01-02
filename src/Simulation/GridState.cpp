@@ -10,18 +10,25 @@ void GridState::Swap(GridState &other) {
     std::swap(state_, other.state_);
 }
 
-void GridState::RandomizeState(const int aliveCellChance) {
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist(0,99);
+void GridState::RandomizeState(std::mt19937& rng, const float aliveCellChance) {
+    std::bernoulli_distribution dist(aliveCellChance);
 
     for (int i = 0; i < size_*size_; i++) {
-        state_[i] = dist(rng) < aliveCellChance ? Cell::Alive : Cell::Dead;
+        state_[i] = dist(rng) ? Cell::Alive : Cell::Dead;
     }
+}
+
+void GridState::RandomizeState(const float aliveCellChance) {
+    std::mt19937 rng(std::random_device{}());
+    RandomizeState(rng, aliveCellChance);
 }
 
 void GridState::ResetState() {
     state_ = std::vector(size_ * size_, Cell::Dead);
+}
+
+bool GridState::operator==(const GridState &lhs) const {
+    return GetSize() == lhs.GetSize() && GetData() == lhs.GetData();
 }
 
 GridState GridState::CreateFromState(const std::vector<Cell> &gridState, const int gridSize) {
@@ -34,18 +41,25 @@ GridState GridState::CreateFromState(const std::vector<Cell> &gridState, const i
     return newGrid;
 }
 
-GridState GridState::CreateRandom(const int gridSize, const int aliveCellChance) {
+GridState GridState::CreateRandom(const int gridSize, std::mt19937& rng, const float aliveCellChance) {
     if (gridSize < 1) {
         throw std::invalid_argument("Grid size is incorrect");
     }
 
     auto newGrid = GridState(gridSize);
-    newGrid.RandomizeState(aliveCellChance);
+    newGrid.RandomizeState(rng, aliveCellChance);
     return newGrid;
 }
 
+GridState GridState::CreateRandom(const int gridSize, const float aliveCellChance) {
+    std::mt19937 rng(std::random_device{}());
+    return CreateRandom(gridSize, rng, aliveCellChance);
+}
 
-int GridState::GetNeighboringAliveCellsCount(const int x, const int y) const {
+
+int GridState::GetNeighbouringAliveCellsCount(const int x, const int y) const {
+    assert(x >= 0 && x < size_ && y >= 0 && y < size_);
+
     int res = 0;
 
     for (const auto&[dx, dy]: neighboursMatrix_) {

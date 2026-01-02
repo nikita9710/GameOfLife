@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <array>
+#include <random>
 
 #include "../Common.h"
 
@@ -11,14 +12,17 @@ public:
 
     static GridState CreateFromState(const std::vector<Cell>& gridState, int gridSize);
 
-    static GridState CreateRandom(int gridSize, int aliveCellChance = DefaultAliveChance);
+    static GridState CreateRandom(int gridSize, std::mt19937& rng, float aliveCellChance = DefaultAliveChance);
 
-    int GetNeighboringAliveCellsCount(int x, int y) const;
+    static GridState CreateRandom(int gridSize, float aliveCellChance = DefaultAliveChance);
+
+    int GetNeighbouringAliveCellsCount(int x, int y) const;
 
     void Swap(GridState &other);
 
     // chance from 0 to 100
-    void RandomizeState(int aliveCellChance);
+    void RandomizeState(float aliveCellChance);
+    void RandomizeState(std::mt19937& rng, float aliveCellChance);
 
     void ResetState();
 
@@ -40,6 +44,9 @@ public:
     const std::vector<Cell>& GetData() const {
         return state_;
     }
+
+    bool operator==(const GridState &lhs) const;
+
 private:
     const int size_;
 
