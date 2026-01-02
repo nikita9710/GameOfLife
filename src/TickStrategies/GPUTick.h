@@ -7,6 +7,6 @@ public:
     explicit GPUTick(std::unique_ptr<Rules> rules);
 
     void Tick(const GridState &current,
-              GridState &next) override;
+              GridState &next) const override;
 };
 }

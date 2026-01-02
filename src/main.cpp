@@ -11,14 +11,14 @@
 
 int main() {
     constexpr int size = 50;
-    auto grid = gol::Simulation(size, std::move(std::make_unique<gol::SingleCoreTick>(std::make_unique<gol::ConwayRules>())));
-    grid.RandomizeState();
+    auto simulation = gol::Simulation(size, std::move(std::make_unique<gol::SingleCoreTick>(std::make_unique<gol::ConwayRules>())));
+    simulation.RandomizeState();
     const std::unique_ptr<gol::Printer> printer = std::make_unique<gol::ConsolePrinter>();
     while (true) {
         auto timeBeforeTick = std::chrono::system_clock::now();
-        grid.Tick();
+        simulation.Tick();
         const auto timeAfterTick = std::chrono::system_clock::now();
-        printer->PrintGrid(grid.GetState());
+        printer->PrintGrid(simulation.GetState());
         printer->PrintStats(std::chrono::duration_cast<std::chrono::microseconds>(timeAfterTick - timeBeforeTick).count()/1000.0);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }

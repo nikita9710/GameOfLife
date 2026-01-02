@@ -4,7 +4,7 @@
 namespace gol {
 SingleCoreTick::SingleCoreTick(std::unique_ptr<Rules> rules): TickStrategy(std::move(rules)) { }
 
-void SingleCoreTick::Tick(const GridState &current, GridState &next) {
+void SingleCoreTick::Tick(const GridState &current, GridState &next) const {
     const int size = current.GetSize();
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {

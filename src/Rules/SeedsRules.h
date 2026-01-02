@@ -4,11 +4,11 @@
 namespace gol {
 class SeedsRules : public Rules {
 public:
-    bool IsNextStateStable(int aliveNeighbours) override {
+    bool isNextStateStableImpl(int aliveNeighbours) override {
         return false;
     }
 
-    bool IsNextStateBirth(int aliveNeighbours) override {
+    bool isNextStateBirthImpl(int aliveNeighbours) override {
         return aliveNeighbours == 2;
     }
 };

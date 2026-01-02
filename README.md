@@ -1,6 +1,6 @@
 todo:
-- ~~predefined initial state~~, ~~ascii to state~~, rle to state, seed
-- unit tests
+- ~~predefined initial state~~, ~~ascii to state~~, rle to state, ~~seed~~
+- ~~unit tests~~
 - console commands for quick settings (-c console, -g gui, -v verbose, etc)
 - edges rule (toroidal vs clamped, template on gridState)
 - better telemetry (memory use, fps, etc)
