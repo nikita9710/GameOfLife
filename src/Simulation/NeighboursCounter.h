@@ -1,0 +1,38 @@
+#pragma once
+#include <cassert>
+
+#include "GridState.h"
+
+namespace gol {
+template<typename EdgePolicy>
+struct NeighboursCounter {
+    static int count(const GridState &currentState, int x, int y) {
+        const auto size = currentState.GetSize();
+        assert(x >= 0 && x < size && y >= 0 && y < size);
+
+        int res = 0;
+
+        for (const auto&[dx, dy]: neighboursMatrix_) {
+            int nx, ny;
+            if (EdgePolicy::resolve(x, y, dx, dy, size, nx, ny)) {
+                res += currentState.IsCellAlive(nx * size + ny);
+            }
+        }
+
+        return res;
+    }
+
+    struct offset {
+        int dx;
+        int dy;
+    };
+
+    static constexpr std::array<offset, 8> neighboursMatrix_ {{
+        {-1, -1}, {-1,  0}, {-1,  1},
+        { 0, -1},           { 0,  1},
+        { 1, -1}, { 1,  0}, { 1,  1}
+    }};
+};
+
+
+}

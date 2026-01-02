@@ -16,11 +16,8 @@ public:
 
     static GridState CreateRandom(int gridSize, float aliveCellChance = DefaultAliveChance);
 
-    int GetNeighbouringAliveCellsCount(int x, int y) const;
-
     void Swap(GridState &other);
 
-    // chance from 0 to 100
     void RandomizeState(float aliveCellChance);
     void RandomizeState(std::mt19937& rng, float aliveCellChance);
 
@@ -51,16 +48,5 @@ private:
     const int size_;
 
     std::vector<Cell> state_;
-
-    struct offset {
-        int dx;
-        int dy;
-    };
-
-    static constexpr std::array<offset, 8> neighboursMatrix_ {{
-        {-1, -1}, {-1,  0}, {-1,  1},
-        { 0, -1},                      { 0,  1},
-        { 1, -1}, { 1,  0}, { 1,  1}
-    }};
 };
 }
