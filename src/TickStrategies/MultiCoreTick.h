@@ -2,10 +2,13 @@
 #include "TickStrategy.h"
 
 namespace gol {
-class MultiCoreTick : public TickStrategy {
+template<typename EdgePolicy>
+class MultiCoreTick : public TickStrategy<EdgePolicy> {
 public:
-    explicit MultiCoreTick(std::unique_ptr<Rules> rules);
-    void Tick(const GridState &current,
-              GridState &next) const override;
+    explicit MultiCoreTick(std::unique_ptr<Rules> rules) : TickStrategy<EdgePolicy>(std::move(rules)) { }
+
+    void Tick(const GridState &current, GridState &next) const override {
+        assert(false && "Not implemented");
+    }
 };
 }

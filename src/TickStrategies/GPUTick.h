@@ -2,11 +2,13 @@
 #include "TickStrategy.h"
 
 namespace gol {
-class GPUTick : public TickStrategy {
+template<typename EdgePolicy>
+class GPUTick : public TickStrategy<EdgePolicy> {
 public:
-    explicit GPUTick(std::unique_ptr<Rules> rules);
+    explicit GPUTick(std::unique_ptr<Rules> rules) : TickStrategy<EdgePolicy>(std::move(rules)) { }
 
-    void Tick(const GridState &current,
-              GridState &next) const override;
+    void Tick(const GridState &current, GridState &next) const override {
+        assert(false && "Not implemented");
+    }
 };
 }

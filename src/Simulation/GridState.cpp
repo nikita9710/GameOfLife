@@ -55,20 +55,4 @@ GridState GridState::CreateRandom(const int gridSize, const float aliveCellChanc
     std::mt19937 rng(std::random_device{}());
     return CreateRandom(gridSize, rng, aliveCellChance);
 }
-
-
-int GridState::GetNeighbouringAliveCellsCount(const int x, const int y) const {
-    assert(x >= 0 && x < size_ && y >= 0 && y < size_);
-
-    int res = 0;
-
-    for (const auto&[dx, dy]: neighboursMatrix_) {
-        //toroidal wrapping => bottom row considered a neighbour of top row, same for right/left
-        const int nx = (x + dx + size_) % size_;
-        const int ny = (y + dy + size_) % size_;
-        res += IsCellAlive(nx * size_ + ny);
-    }
-
-    return res;
-}
 }

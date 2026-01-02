@@ -74,58 +74,6 @@ TEST_CASE("GridState Swap behavior") {
     }
 }
 
-TEST_CASE("Toric GridState Count alive neighbours") {
-    {
-        auto grid1 = gol::GridStateFromASCII("#", 1);
-        REQUIRE(grid1.GetNeighbouringAliveCellsCount(0,0) == 8);
-        auto grid2 = gol::GridStateFromASCII(".", 1);
-        REQUIRE(grid2.GetNeighbouringAliveCellsCount(0,0) == 0);
-    }
-    {
-        auto grid1 = gol::GridStateFromASCII("....", 2);
-        REQUIRE(grid1.GetNeighbouringAliveCellsCount(0,0) == 0);
-        REQUIRE(grid1.GetNeighbouringAliveCellsCount(0,1) == 0);
-        REQUIRE(grid1.GetNeighbouringAliveCellsCount(1,0) == 0);
-        REQUIRE(grid1.GetNeighbouringAliveCellsCount(1,1) == 0);
-
-        auto grid2 = gol::GridStateFromASCII("####", 2);
-        REQUIRE(grid2.GetNeighbouringAliveCellsCount(0,0) == 8);
-        REQUIRE(grid2.GetNeighbouringAliveCellsCount(0,1) == 8);
-        REQUIRE(grid2.GetNeighbouringAliveCellsCount(1,0) == 8);
-        REQUIRE(grid2.GetNeighbouringAliveCellsCount(1,1) == 8);
-
-        auto grid3 = gol::GridStateFromASCII("#...", 2);
-        REQUIRE(grid3.GetNeighbouringAliveCellsCount(0,0) == 0);
-        REQUIRE(grid3.GetNeighbouringAliveCellsCount(0,1) == 2);
-        REQUIRE(grid3.GetNeighbouringAliveCellsCount(1,0) == 2);
-        REQUIRE(grid3.GetNeighbouringAliveCellsCount(1,1) == 4);
-    }
-    {
-        auto grid = gol::GridStateFromASCII("#...#...#", 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,0) == 2);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,1) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,2) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,0) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,1) == 2);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,2) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,0) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,1) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,2) == 2);
-    }
-    {
-        auto grid = gol::GridStateFromASCII("#..#..#..", 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,0) == 2);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,1) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(0,2) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,0) == 2);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,1) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(1,2) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,0) == 2);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,1) == 3);
-        REQUIRE(grid.GetNeighbouringAliveCellsCount(2,2) == 3);
-    }
-}
-
 TEST_CASE("GridState Invalid input") {
     REQUIRE_THROWS_AS(gol::GridState::CreateRandom(0), std::invalid_argument);
     REQUIRE_THROWS_AS(gol::GridState::CreateFromState({}, 0), std::invalid_argument);
