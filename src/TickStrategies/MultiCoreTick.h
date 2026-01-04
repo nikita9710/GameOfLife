@@ -8,5 +8,7 @@ public:
     void Tick(const GridState &current, GridState &next) const {
         assert(false && "Not implemented");
     }
+private:
+    Rules rules_;
 };
 }
