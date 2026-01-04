@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "GridState.h"
+#include "../Grid/GridState.h"
 
 namespace gol {
 template<typename Strategy>

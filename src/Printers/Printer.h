@@ -1,5 +1,5 @@
 #pragma once
-#include "../Simulation/GridState.h"
+#include "../Grid/GridState.h"
 
 namespace gol {
 class Printer {

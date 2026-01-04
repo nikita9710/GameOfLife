@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Rules/ConwayRules.h"
-#include "Simulation/EdgePolicies.h"
+#include "../../src/Grid/EdgePolicies.h"
 #include "Simulation/Simulation.h"
 #include "TickStrategies/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"

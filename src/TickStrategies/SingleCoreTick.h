@@ -1,5 +1,5 @@
 #pragma once
-#include "Simulation/NeighboursCounter.h"
+#include "../Grid/NeighboursCounter.h"
 
 namespace gol {
 template<typename EdgePolicy, typename Rules>

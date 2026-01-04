@@ -7,7 +7,7 @@
 #include "Rules/ConwayRules.h"
 #include "Rules/SeedsRules.h"
 #include "Rules/ReplicatorRules.h"
-#include "Simulation/EdgePolicies.h"
+#include "Grid/EdgePolicies.h"
 #include "TickStrategies/SingleCoreTick.h"
 
 int main() {
