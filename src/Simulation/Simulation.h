@@ -4,18 +4,14 @@
 #include "GridState.h"
 
 namespace gol {
-template<typename EdgePolicy>
-class TickStrategy;
-
-template<typename EdgePolicy>
+template<typename Strategy>
 class Simulation {
 public:
-    using Strategy = TickStrategy<EdgePolicy>;
 
-    Simulation(int size, std::unique_ptr<Strategy> strategy) : strategy_(std::move(strategy)), currentState_(size), nextState_(size) { }
+    Simulation(int size, Strategy strategy = {}) : currentState_(size), nextState_(size), strategy_(strategy) { }
 
     void Tick() {
-        strategy_->Tick(currentState_, nextState_);
+        strategy_.Tick(currentState_, nextState_);
         currentState_.Swap(nextState_);
     }
 
@@ -34,8 +30,8 @@ public:
     void ResetState() {
         currentState_.ResetState();
     }
-private:
-    std::unique_ptr<Strategy> strategy_;
+protected:
+    Strategy strategy_;
 
     GridState currentState_;
 

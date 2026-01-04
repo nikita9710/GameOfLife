@@ -24,7 +24,7 @@ TEST_CASE("Single Core Tick Conway Toroidal Blinker pattern") {
                                                           ..#..
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -58,7 +58,7 @@ TEST_CASE("Single Core Tick Conway Toroidal over edge Blinker pattern") {
                                                           .....
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -101,7 +101,7 @@ TEST_CASE("Single Core Tick Conway Toroidal over edge Block pattern") {
                                                           .....
                                                           #...#)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -135,7 +135,7 @@ TEST_CASE("Single Core Tick Conway Toroidal Block pattern") {
                                                           .....
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -158,7 +158,7 @@ TEST_CASE("Single Core Tick Conway Toroidal Overpopulation") {
     auto nextState2 = gol::GridStateFromASCII("#########################", 5);
     const auto expectedState = gol::GridStateFromASCII(".........................", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -180,7 +180,7 @@ TEST_CASE("Single Core Tick Conway Toroidal All dead") {
     auto nextState2 = gol::GridStateFromASCII("#########################", 5);
     const auto expectedState = gol::GridStateFromASCII(".........................", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -214,7 +214,7 @@ TEST_CASE("Single Core Tick Conway Clamped Blinker pattern") {
                                                           ..#..
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -248,7 +248,7 @@ TEST_CASE("Single Core Tick Conway Clamped over edge Blinker pattern") {
                                                           .....
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -291,7 +291,7 @@ TEST_CASE("Single Core Tick Conway Clamped over edge Block pattern") {
                                                           .....
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -325,7 +325,7 @@ TEST_CASE("Single Core Tick Conway Clamped Block pattern") {
                                                           .....
                                                           .....)", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -349,7 +349,7 @@ TEST_CASE("Single Core Tick Conway Clamped Overpopulation") {
     const auto expectedState1 = gol::GridStateFromASCII("#...#...............#...#", 5);
     const auto expectedState2 = gol::GridStateFromASCII(".........................", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 
@@ -379,7 +379,7 @@ TEST_CASE("Single Core Tick Conway Clamped All dead") {
     auto nextState2 = gol::GridStateFromASCII("#########################", 5);
     const auto expectedState = gol::GridStateFromASCII(".........................", 5);
 
-    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy>(std::make_unique<gol::ConwayRules>());
+    const auto tickStrategy = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::ConwayRules>();
     {
         tickStrategy.Tick(currentState, nextState1);
 

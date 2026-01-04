@@ -1,13 +1,11 @@
 #pragma once
-#include "TickStrategy.h"
+#include <cassert>
 
 namespace gol {
-template<typename EdgePolicy>
-class GPUTick : public TickStrategy<EdgePolicy> {
+template<typename EdgePolicy, typename Rules>
+class GPUTick{
 public:
-    explicit GPUTick(std::unique_ptr<Rules> rules) : TickStrategy<EdgePolicy>(std::move(rules)) { }
-
-    void Tick(const GridState &current, GridState &next) const override {
+    void Tick(const GridState &current, GridState &next) const {
         assert(false && "Not implemented");
     }
 };

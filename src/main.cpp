@@ -13,7 +13,7 @@
 int main() {
     using namespace gol;
     constexpr int size = 30;
-    auto simulation = Simulation<ToroidalEdgePolicy>(size, std::move(std::make_unique<SingleCoreTick<ToroidalEdgePolicy>>(std::make_unique<ConwayRules>())));
+    auto simulation = Simulation<SingleCoreTick<ToroidalEdgePolicy, ConwayRules>>(size);
     simulation.RandomizeState();
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
     while (true) {

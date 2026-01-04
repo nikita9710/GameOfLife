@@ -6,14 +6,26 @@
 #include "TickStrategies/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"
 
-template<typename EdgePolicy>
-class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy> {
-    public:
-    TestSingleCoreTick(std::unique_ptr<gol::Rules> rules) : gol::SingleCoreTick<EdgePolicy>(std::move(rules)) { }
+template<typename Strategy>
+class TestSimulation : public gol::Simulation<Strategy> {
+public:
+    using gol::Simulation<Strategy>::Simulation;
 
-    void Tick(const gol::GridState &current, gol::GridState &next) const override {
+    TestSimulation(int size, Strategy strategy = {}) : gol::Simulation<Strategy>(size, strategy) { }
+
+    Strategy& GetStrategy() {
+        return this->strategy_;
+    }
+};
+
+template<typename EdgePolicy, typename Rules>
+class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy, Rules> {
+    public:
+    TestSingleCoreTick() : gol::SingleCoreTick<EdgePolicy, Rules>() { }
+
+    void Tick(const gol::GridState &current, gol::GridState &next) const {
         TickCallCounter++;
-        gol::SingleCoreTick<EdgePolicy>::Tick(current, next);
+        gol::SingleCoreTick<EdgePolicy, Rules>::Tick(current, next);
     }
     mutable int TickCallCounter = 0;
 };
@@ -21,11 +33,8 @@ class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy> {
 TEST_CASE("Simulation Blinker test") {
     constexpr int size = 5;
 
-    auto strategy = std::make_unique<TestSingleCoreTick<gol::ToroidalEdgePolicy>>(std::make_unique<gol::ConwayRules>());
-    const auto strategyPtr = strategy.get();
-    REQUIRE_FALSE(strategyPtr == nullptr);
-
-    auto simulation = gol::Simulation<gol::ToroidalEdgePolicy>(size, std::move(strategy));
+    const auto strategy = TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
+    auto simulation = TestSimulation(size, strategy);
     simulation.SetState(gol::GridStateFromASCII(R"(.....
                                                    .....
                                                    .###.
@@ -45,9 +54,9 @@ TEST_CASE("Simulation Blinker test") {
                                                           .....)", 5);
 
     for (int i = 0; i < 10; ++i) {
-        REQUIRE(strategyPtr->TickCallCounter == i);
+        REQUIRE(simulation.GetStrategy().TickCallCounter == i);
         simulation.Tick();
-        REQUIRE(strategyPtr->TickCallCounter == i+1);
+        REQUIRE(simulation.GetStrategy().TickCallCounter == i+1);
         if (i % 2 == 0) {
             REQUIRE(simulation.GetState() == expectedState);
         }
