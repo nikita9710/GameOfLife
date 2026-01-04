@@ -1,14 +1,13 @@
 #pragma once
-#include "Rules.h"
+#include "RulesBase.h"
 
 namespace gol {
-class SeedsRules : public Rules {
-public:
-    bool isNextStateStableImpl(int aliveNeighbours) override {
+struct SeedsRules : RulesBase<SeedsRules> {
+    static bool isNextStateStableImpl(int _) {
         return false;
     }
 
-    bool isNextStateBirthImpl(int aliveNeighbours) override {
+    static bool isNextStateBirthImpl(int aliveNeighbours) {
         return aliveNeighbours == 2;
     }
 };

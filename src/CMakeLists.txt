@@ -1,6 +1,5 @@
 add_library(gol
         Simulation/Simulation.h
-        TickStrategies/TickStrategy.h
         Common.h
         TickStrategies/SingleCoreTick.h
         TickStrategies/GPUTick.h
@@ -10,7 +9,7 @@ add_library(gol
         Printers/Printer.h
         Printers/ConsolePrinter.cpp
         Printers/ConsolePrinter.h
-        Rules/Rules.h
+        Rules/RulesBase.h
         Rules/ConwayRules.h
         Rules/SeedsRules.h
         Rules/ReplicatorRules.h

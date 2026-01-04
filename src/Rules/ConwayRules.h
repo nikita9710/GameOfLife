@@ -1,14 +1,13 @@
 #pragma once
-#include "Rules.h"
+#include "RulesBase.h"
 
 namespace gol {
-class ConwayRules : public Rules {
-public:
-    bool isNextStateStableImpl(int aliveNeighbours) override {
+struct ConwayRules : RulesBase<ConwayRules> {
+    static bool isNextStateStableImpl(int aliveNeighbours) {
         return aliveNeighbours == 2 || aliveNeighbours == 3;
     }
 
-    bool isNextStateBirthImpl(int aliveNeighbours) override {
+    static bool isNextStateBirthImpl(int aliveNeighbours) {
         return aliveNeighbours == 3;
     }
 };

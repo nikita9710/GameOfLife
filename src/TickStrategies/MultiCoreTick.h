@@ -1,14 +1,14 @@
 #pragma once
-#include "TickStrategy.h"
+#include <cassert>
 
 namespace gol {
-template<typename EdgePolicy>
-class MultiCoreTick : public TickStrategy<EdgePolicy> {
+template<typename EdgePolicy, typename Rules>
+class MultiCoreTick {
 public:
-    explicit MultiCoreTick(std::unique_ptr<Rules> rules) : TickStrategy<EdgePolicy>(std::move(rules)) { }
-
-    void Tick(const GridState &current, GridState &next) const override {
+    void Tick(const GridState &current, GridState &next) const {
         assert(false && "Not implemented");
     }
+private:
+    Rules rules_;
 };
 }
