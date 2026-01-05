@@ -8,12 +8,12 @@
 #include "Rules/SeedsRules.h"
 #include "Rules/ReplicatorRules.h"
 #include "Grid/EdgePolicies.h"
-#include "TickStrategies/SingleCoreTick.h"
+#include "TickEngines/SingleCoreTick.h"
 
 int main() {
     using namespace gol;
     constexpr int size = 30;
-    auto simulation = Simulation<SingleCoreTick<ToroidalEdgePolicy, ConwayRules>>(size);
+    auto simulation = Simulation<SingleCoreTick<ToroidalEdgePolicy, rules::ConwayRules>>(size);
     simulation.RandomizeState();
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
     while (true) {

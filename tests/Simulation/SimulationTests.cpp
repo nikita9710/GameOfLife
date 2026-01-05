@@ -3,18 +3,18 @@
 #include "Rules/ConwayRules.h"
 #include "../../src/Grid/EdgePolicies.h"
 #include "Simulation/Simulation.h"
-#include "TickStrategies/SingleCoreTick.h"
+#include "TickEngines/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"
 
-template<typename Strategy>
-class TestSimulation : public gol::Simulation<Strategy> {
+template<typename Engine>
+class TestSimulation : public gol::Simulation<Engine> {
 public:
-    using gol::Simulation<Strategy>::Simulation;
+    using gol::Simulation<Engine>::Simulation;
 
-    TestSimulation(int size, Strategy strategy = {}) : gol::Simulation<Strategy>(size, strategy) { }
+    TestSimulation(int size, Engine engine = {}) : gol::Simulation<Engine>(size, engine) { }
 
-    Strategy& GetStrategy() {
-        return this->strategy_;
+    Engine& Getengine() {
+        return this->engine_;
     }
 };
 
@@ -33,8 +33,8 @@ class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy, Rules> {
 TEST_CASE("Simulation Blinker test") {
     constexpr int size = 5;
 
-    const auto strategy = TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::ConwayRules>();
-    auto simulation = TestSimulation(size, strategy);
+    const auto engine = TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    auto simulation = TestSimulation(size, engine);
     simulation.SetState(gol::GridStateFromASCII(R"(.....
                                                    .....
                                                    .###.
@@ -54,9 +54,9 @@ TEST_CASE("Simulation Blinker test") {
                                                           .....)", 5);
 
     for (int i = 0; i < 10; ++i) {
-        REQUIRE(simulation.GetStrategy().TickCallCounter == i);
+        REQUIRE(simulation.Getengine().TickCallCounter == i);
         simulation.Tick();
-        REQUIRE(simulation.GetStrategy().TickCallCounter == i+1);
+        REQUIRE(simulation.Getengine().TickCallCounter == i+1);
         if (i % 2 == 0) {
             REQUIRE(simulation.GetState() == expectedState);
         }

@@ -1,7 +1,7 @@
 #pragma once
 #include "RulesBase.h"
 
-namespace gol {
+namespace gol::rules {
 struct SeedsRules : RulesBase<SeedsRules> {
     static bool isNextStateStableImpl(int _) {
         return false;

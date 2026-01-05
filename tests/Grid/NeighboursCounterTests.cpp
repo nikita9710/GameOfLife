@@ -1,8 +1,6 @@
 #include "catch2/catch_test_macros.hpp"
-#include "Rules/ConwayRules.h"
 #include "../../src/Grid/EdgePolicies.h"
 #include "../../src/Grid/NeighboursCounter.h"
-#include "TickStrategies/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"
 
 TEST_CASE("Toroidal Count alive neighbours") {

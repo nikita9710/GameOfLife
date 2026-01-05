@@ -4,14 +4,13 @@
 #include "../Grid/GridState.h"
 
 namespace gol {
-template<typename Strategy>
+template<typename Engine>
 class Simulation {
 public:
-
-    Simulation(int size, Strategy strategy = {}) : currentState_(size), nextState_(size), strategy_(strategy) { }
+    Simulation(int size, Engine engine = {}) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
 
     void Tick() {
-        strategy_.Tick(currentState_, nextState_);
+        engine_.Tick(currentState_, nextState_);
         currentState_.Swap(nextState_);
     }
 
@@ -31,7 +30,7 @@ public:
         currentState_.ResetState();
     }
 protected:
-    Strategy strategy_;
+    Engine engine_;
 
     GridState currentState_;
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <cassert>
 
-namespace gol {
+namespace gol::rules {
 template<typename Impl>
 struct RulesBase {
     bool IsNextStateStable(int aliveNeighbours) const {
