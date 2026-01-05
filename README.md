@@ -2,7 +2,7 @@ todo:
 - ~~predefined initial state~~, ~~ascii to state~~, rle to state, ~~seed~~
 - ~~unit tests~~
 - ~~TickStrategy via template~~
-- console commands for quick settings (-c console, -g gui, -v verbose, etc), Simulation factory, ~~settings (size, tick engine, rules)~~
+- console commands for quick settings (-c console, -g gui, -v verbose, etc), ~~Simulation factory~~, ~~settings (size, tick engine, rules)~~
 - ~~edges rule (toroidal vs clamped, template on gridState)~~
 - better telemetry (memory use, fps, etc)
 - multicore
