@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <stdexcept>
 
 #include "Common.h"
 #include "EdgeMode.h"
@@ -7,7 +8,12 @@
 #include "TickMode.h"
 #include "Grid/GridState.h"
 
+namespace gol {
+    class SimulationFactory;
+}
+
 namespace gol::config {
+
 struct SimulationConfig {
     SimulationConfig(const int size, const TickMode tickMode, const EdgeMode edge_mode, const Ruleset ruleset) :
     size_(size), tickMode_(tickMode), edgeMode_(edge_mode), ruleset_(ruleset) {
@@ -16,7 +22,7 @@ struct SimulationConfig {
         }
     };
 
-    SimulationConfig& UsePredefinedInitialState(GridState state) {
+    [[nodiscard]] SimulationConfig& UsePredefinedInitialState(GridState state) {
         if (state.GetSize() != size_) {
             throw std::invalid_argument("State size does not match sim size");
         }
@@ -26,7 +32,7 @@ struct SimulationConfig {
         return *this;
     }
 
-    SimulationConfig& UseRandomInitialState(const float chance = DefaultAliveChance) {
+    [[nodiscard]] SimulationConfig& UseRandomInitialState(const float chance = DefaultAliveChance) {
         if (chance > 1.0 || chance < 0.0) {
             throw std::invalid_argument("Invalid alive chance");
         }
@@ -37,7 +43,7 @@ struct SimulationConfig {
         return *this;
     }
 
-    SimulationConfig& UseSeededRandomInitialState(const uint32_t seed, const float chance = DefaultAliveChance) {
+    [[nodiscard]] SimulationConfig& UseSeededRandomInitialState(const uint32_t seed, const float chance = DefaultAliveChance) {
         if (chance > 1.0 || chance < 0.0) {
             throw std::invalid_argument("Invalid alive chance");
         }
@@ -48,7 +54,6 @@ struct SimulationConfig {
         return *this;
     }
 private:
-    friend class SimulationFactory;
 
     int size_;
 
@@ -57,16 +62,18 @@ private:
     Ruleset ruleset_;
 
     enum class InitialState {
-        Empty,
+        EmptyGrid,
         RandomSeeded,
         Random,
         Predefined
-    } initialState_ = InitialState::Empty;
+    } initialState_ = InitialState::EmptyGrid;
 
     float aliveChance_ = DefaultAliveChance;
 
     std::optional<uint32_t> randomSeed_;
 
     std::optional<GridState> predefinedState_;
+
+    friend class gol::SimulationFactory;
 };
 }

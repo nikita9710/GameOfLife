@@ -1,0 +1,89 @@
+#include "SimulationFactory.h"
+
+#include <utility>
+
+#include "../SimulationAdapter.h"
+#include "Grid/EdgePolicies.h"
+#include "Rules/ConwayRules.h"
+#include "Rules/ReplicatorRules.h"
+#include "Rules/SeedsRules.h"
+#include "TickEngines/MultiCoreTick.h"
+#include "TickEngines/SingleCoreTick.h"
+
+namespace gol {
+std::unique_ptr<ISimulation> SimulationFactory::Create(const config::SimulationConfig &config) {
+    std::unique_ptr<ISimulation> result;
+    switch (config.tickMode_) {
+        case config::TickMode::SingleCore:
+            result = createSingleCoreSimulation(config);
+            break;
+        case config::TickMode::MultiCore:
+            result = createMultiCoreSimulation(config);
+            break;
+        default:
+        assert(false && "Tick is missing");
+    }
+    switch (config.initialState_) {
+        case config::SimulationConfig::InitialState::EmptyGrid:
+            break;
+        case config::SimulationConfig::InitialState::RandomSeeded: {
+                assert(config.randomSeed_.has_value());
+                std::mt19937 rng(config.randomSeed_.value());
+                auto grid = GridState::CreateRandom(config.size_, rng, config.aliveChance_);
+                result->setState(std::move(grid));
+            }
+            break;
+        case config::SimulationConfig::InitialState::Random: {
+                std::mt19937 rng(std::random_device{}());
+                auto grid = GridState::CreateRandom(config.size_, rng, config.aliveChance_);
+                result->setState(std::move(grid));
+            }
+            break;
+        case config::SimulationConfig::InitialState::Predefined: {
+                assert(config.predefinedState_.has_value());
+                result->setState(config.predefinedState_.value());
+            }
+            break;
+        default:
+            assert(false && "Init State is missing");
+    }
+
+    return result;
+}
+
+std::unique_ptr<ISimulation> SimulationFactory::createSingleCoreSimulation(const config::SimulationConfig &config) {
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Conway)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ToroidalEdgePolicy, rules::ConwayRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Seeds)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ToroidalEdgePolicy, rules::SeedsRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Replicator)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ToroidalEdgePolicy, rules::ReplicatorRules>>>(config.size_);
+
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Conway)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ClampedEdgePolicy, rules::ConwayRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Seeds)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ClampedEdgePolicy, rules::SeedsRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Replicator)
+        return std::make_unique<SimulationAdapter<SingleCoreTick<ClampedEdgePolicy, rules::ReplicatorRules>>>(config.size_);
+
+    assert(false && "Combination of EdgeMode and Ruleset is missing");
+}
+
+std::unique_ptr<ISimulation> SimulationFactory::createMultiCoreSimulation(const config::SimulationConfig &config) {
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Conway)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ToroidalEdgePolicy, rules::ConwayRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Seeds)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ToroidalEdgePolicy, rules::SeedsRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Toroidal && config.ruleset_ == config::Ruleset::Replicator)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ToroidalEdgePolicy, rules::ReplicatorRules>>>(config.size_);
+
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Conway)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ClampedEdgePolicy, rules::ConwayRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Seeds)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ClampedEdgePolicy, rules::SeedsRules>>>(config.size_);
+    if (config.edgeMode_ == config::EdgeMode::Clamped && config.ruleset_ == config::Ruleset::Replicator)
+        return std::make_unique<SimulationAdapter<MultiCoreTick<ClampedEdgePolicy, rules::ReplicatorRules>>>(config.size_);
+
+    assert(false && "Combination of EdgeMode and Ruleset is missing");
+}
+}

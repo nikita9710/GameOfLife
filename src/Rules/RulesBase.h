@@ -4,12 +4,12 @@
 namespace gol::rules {
 template<typename Impl>
 struct RulesBase {
-    bool IsNextStateStable(int aliveNeighbours) const {
+    [[nodiscard]] bool IsNextStateStable(int aliveNeighbours) const {
         assertValidNeighboursCount(aliveNeighbours);
         return Impl::isNextStateStableImpl(aliveNeighbours);
     }
 
-    bool IsNextStateBirth(int aliveNeighbours) const {
+    [[nodiscard]] bool IsNextStateBirth(int aliveNeighbours) const {
         assertValidNeighboursCount(aliveNeighbours);
         return Impl::isNextStateBirthImpl(aliveNeighbours);
     }

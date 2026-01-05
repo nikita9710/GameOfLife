@@ -7,14 +7,14 @@ namespace gol {
 template<typename Engine>
 class Simulation {
 public:
-    Simulation(int size, Engine engine = {}) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
+    explicit Simulation(const int size, Engine engine = {}) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
 
     void Tick() {
         engine_.Tick(currentState_, nextState_);
         currentState_.Swap(nextState_);
     }
 
-    const GridState& GetState() const {
+    [[nodiscard]] const GridState& GetState() const {
         return currentState_;
     }
 
@@ -22,7 +22,7 @@ public:
         currentState_.Swap(newState);
     }
 
-    void RandomizeState(float aliveChance = DefaultAliveChance) {
+    void RandomizeState(const float aliveChance = DefaultAliveChance) {
         currentState_.RandomizeState(aliveChance);
     }
 
