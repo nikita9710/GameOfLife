@@ -6,7 +6,7 @@
 namespace gol {
 template<typename EdgePolicy>
 struct NeighboursCounter {
-    static int count(const GridState &currentState, int x, int y) {
+    [[nodiscard]] static int Count(const GridState &currentState, int x, int y) {
         const auto size = currentState.GetSize();
         assert(x >= 0 && x < size && y >= 0 && y < size);
 

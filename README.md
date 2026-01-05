@@ -2,11 +2,12 @@ todo:
 - ~~predefined initial state~~, ~~ascii to state~~, rle to state, ~~seed~~
 - ~~unit tests~~
 - ~~TickStrategy via template~~
-- console commands for quick settings (-c console, -g gui, -v verbose, etc), Simulation factory
+- console commands for quick settings (-c console, -g gui, -v verbose, etc), ~~Simulation factory~~, ~~settings (size, tick engine, rules)~~
 - ~~edges rule (toroidal vs clamped, template on gridState)~~
 - better telemetry (memory use, fps, etc)
 - multicore
-- input (sim speed, pause, step, reset), settings (size, tick strategy, rules)
+- input (sim speed, pause, step, reset)
+- webGPU grid rendering
 - benchmarking
 - rules via variadic template, custom rule strings
 - comments, doxygen?

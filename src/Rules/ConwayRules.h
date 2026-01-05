@@ -1,7 +1,7 @@
 #pragma once
 #include "RulesBase.h"
 
-namespace gol {
+namespace gol::rules {
 struct ConwayRules : RulesBase<ConwayRules> {
     static bool isNextStateStableImpl(int aliveNeighbours) {
         return aliveNeighbours == 2 || aliveNeighbours == 3;

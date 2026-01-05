@@ -5,7 +5,7 @@
 #include "Rules/SeedsRules.h"
 
 TEST_CASE("Conway Rules Next states") {
-    auto rules = gol::ConwayRules();
+    auto rules = gol::rules::ConwayRules();
 
     REQUIRE_FALSE(rules.IsNextStateStable(0));
     REQUIRE_FALSE(rules.IsNextStateStable(1));
@@ -29,7 +29,7 @@ TEST_CASE("Conway Rules Next states") {
 }
 
 TEST_CASE("Seeds Rules Next states") {
-    auto rules = gol::SeedsRules();
+    auto rules = gol::rules::SeedsRules();
 
     REQUIRE_FALSE(rules.IsNextStateStable(0));
     REQUIRE_FALSE(rules.IsNextStateStable(1));
@@ -53,7 +53,7 @@ TEST_CASE("Seeds Rules Next states") {
 }
 
 TEST_CASE("Replicator Rules Next states") {
-    auto rules = gol::ReplicatorRules();
+    auto rules = gol::rules::ReplicatorRules();
 
     REQUIRE_FALSE(rules.IsNextStateStable(0));
     REQUIRE(rules.IsNextStateStable(1));

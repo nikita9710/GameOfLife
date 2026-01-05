@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-#include "Simulation/GridState.h"
+#include "../../src/Grid/GridState.h"
 #include "Utils/GridStateFromASCII.h"
 
 TEST_CASE("GridState Constructor initializes to dead") {

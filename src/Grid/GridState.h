@@ -23,22 +23,22 @@ public:
 
     void ResetState();
 
-    Cell& operator[](int index) { return state_[index]; }
-    const Cell& operator[](int index) const { return state_[index]; }
+    Cell& operator[](const int index) { return state_[index]; }
+    const Cell& operator[](const int index) const { return state_[index]; }
 
-    bool IsCellAlive(const int index) const {
+    [[nodiscard]] bool IsCellAlive(const int index) const {
         return state_[index] == Cell::Alive;
     }
 
-    bool IsCellAlive(const int x, const int y) const {
+    [[nodiscard]] bool IsCellAlive(const int x, const int y) const {
         return IsCellAlive(x*size_ + y);
     }
 
-    int GetSize() const {
+    [[nodiscard]] int GetSize() const {
         return size_;
     }
 
-    const std::vector<Cell>& GetData() const {
+    [[nodiscard]] const std::vector<Cell>& GetData() const {
         return state_;
     }
 

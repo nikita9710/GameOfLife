@@ -1,5 +1,5 @@
 #pragma once
-#include "Simulation/NeighboursCounter.h"
+#include "../Grid/NeighboursCounter.h"
 
 namespace gol {
 template<typename EdgePolicy, typename Rules>
@@ -10,7 +10,7 @@ public:
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 const int index = i * size + j;
-                const int aliveNeighbours = NeighboursCounter<EdgePolicy>::count(current, i, j);
+                const int aliveNeighbours = NeighboursCounter<EdgePolicy>::Count(current, i, j);
                 const bool alive = current.IsCellAlive(index);
                 next[index] =
                     (alive && rules_.IsNextStateStable(aliveNeighbours)) ||
