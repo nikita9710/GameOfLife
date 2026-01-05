@@ -2,6 +2,7 @@
 #include <thread>
 #include <chrono>
 
+#include "Config/SimulationConfig.h"
 #include "Simulation/Simulation.h"
 #include "Printers/ConsolePrinter.h"
 #include "Rules/ConwayRules.h"
@@ -9,10 +10,14 @@
 #include "Rules/ReplicatorRules.h"
 #include "Grid/EdgePolicies.h"
 #include "TickEngines/SingleCoreTick.h"
+#include "Utils/GridStateFromASCII.h"
 
 int main() {
     using namespace gol;
-    constexpr int size = 30;
+    constexpr int size = 3;
+    const auto simConfig = config::SimulationConfig(
+        size, config::TickMode::SingleCore, config::EdgeMode::Toroidal, config::Ruleset::Conway).
+        UseRandomInitialState();
     auto simulation = Simulation<SingleCoreTick<ToroidalEdgePolicy, rules::ConwayRules>>(size);
     simulation.RandomizeState();
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
