@@ -24,22 +24,22 @@ std::unique_ptr<ISimulation> SimulationFactory::Create(const config::SimulationC
         assert(false && "Tick is missing");
     }
     switch (config.initialState_) {
-        case config::SimulationConfig::InitialState::EmptyGrid:
+        case config::InitialState::EmptyGrid:
             break;
-        case config::SimulationConfig::InitialState::RandomSeeded: {
+        case config::InitialState::RandomSeeded: {
                 assert(config.randomSeed_.has_value());
                 std::mt19937 rng(config.randomSeed_.value());
                 auto grid = GridState::CreateRandom(config.size_, rng, config.aliveChance_);
                 result->setState(std::move(grid));
             }
             break;
-        case config::SimulationConfig::InitialState::Random: {
+        case config::InitialState::Random: {
                 std::mt19937 rng(std::random_device{}());
                 auto grid = GridState::CreateRandom(config.size_, rng, config.aliveChance_);
                 result->setState(std::move(grid));
             }
             break;
-        case config::SimulationConfig::InitialState::Predefined: {
+        case config::InitialState::Predefined: {
                 assert(config.predefinedState_.has_value());
                 result->setState(config.predefinedState_.value());
             }

@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include <../tests/Utils/magic_enum.hpp>
+#include <../../src/Utils/magic_enum.hpp>
 
 #include "Config/SimulationConfig.h"
 #include "Grid/EdgePolicies.h"

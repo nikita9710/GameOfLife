@@ -5,5 +5,5 @@ add_executable(tests Grid/ASCIIParserTests.cpp
         Simulation/SimulationTests.cpp
         Grid/NeighboursCounterTests.cpp
         Simulation/SimulationFactoryTests.cpp
-        Utils/magic_enum.hpp)
+        ../src/Utils/magic_enum.hpp)
 target_link_libraries(tests PRIVATE gol Catch2::Catch2WithMain)
