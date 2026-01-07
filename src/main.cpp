@@ -2,23 +2,23 @@
 #include <thread>
 #include <chrono>
 
+#include "CLI/CLIOptions.h"
+#include "CLI/CLIParser.h"
 #include "Config/SimulationConfig.h"
-#include "Simulation/Simulation.h"
 #include "Printers/ConsolePrinter.h"
-#include "Rules/ConwayRules.h"
-#include "Rules/SeedsRules.h"
-#include "Rules/ReplicatorRules.h"
-#include "Grid/EdgePolicies.h"
 #include "Simulation/Factory/SimulationFactory.h"
-#include "TickEngines/SingleCoreTick.h"
-#include "Utils/GridStateFromASCII.h"
 
-int main() {
+int main(int argc, char** argv) {
     using namespace gol;
-
-    const auto simConfig = config::SimulationConfig(
-        50, config::TickMode::SingleCore, config::EdgeMode::Toroidal, config::Ruleset::Conway).
-        UseRandomInitialState();
+    if (argc == 2 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help")) {
+        // todo
+        std::cout << "todo help" << std::endl;
+        return 0;
+    }
+    const auto simConfig = config::CLIParser::ParseArgs(argc, argv).MakeConfig();
+    // const auto simConfig = config::SimulationConfig(
+    //     50, config::TickMode::SingleCore, config::EdgeMode::Toroidal, config::Ruleset::Conway).
+    //     UseRandomInitialState();
     const auto simulation = SimulationFactory::Create(simConfig);
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
 

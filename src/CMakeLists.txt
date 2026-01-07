@@ -25,6 +25,10 @@ add_library(gol
         Config/TickMode.h
         Simulation/Factory/SimulationFactory.cpp
         Simulation/Factory/SimulationFactory.h
+        CLI/CLIOptions.h
+        CLI/CLIParser.cpp
+        CLI/CLIParser.h
+        Config/InitialState.h
 )
 
 target_include_directories(gol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

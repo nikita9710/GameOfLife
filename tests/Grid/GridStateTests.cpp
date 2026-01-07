@@ -6,13 +6,13 @@
 TEST_CASE("GridState Constructor initializes to dead") {
     {
         auto emptyGrid = gol::GridState(1);
-        const auto expectedGrid = gol::GridStateFromASCII(".", 1);
+        const auto expectedGrid = gol::GridStateFromASCII(1, ".");
 
         REQUIRE(emptyGrid == expectedGrid);
     }
     {
         auto emptyGrid = gol::GridState(3);
-        const auto expectedGrid = gol::GridStateFromASCII(".........", 3);
+        const auto expectedGrid = gol::GridStateFromASCII(3, ".........");
 
         REQUIRE(emptyGrid == expectedGrid);
     }
@@ -20,8 +20,8 @@ TEST_CASE("GridState Constructor initializes to dead") {
 
 TEST_CASE("GridState operator== behavior") {
     {
-        auto grid1 = gol::GridStateFromASCII("..#..#..#", 3);
-        const auto expectedGrid1 = gol::GridStateFromASCII("..#..#..#", 3);
+        auto grid1 = gol::GridStateFromASCII(3, "..#..#..#");
+        const auto expectedGrid1 = gol::GridStateFromASCII(3, "..#..#..#");
 
         REQUIRE(grid1 == expectedGrid1);
 
@@ -37,7 +37,7 @@ TEST_CASE("GridState operator== behavior") {
 
 TEST_CASE("GridState ResetState behavior") {
     {
-        auto resetGrid = gol::GridStateFromASCII("..#..#..#", 3);
+        auto resetGrid = gol::GridStateFromASCII(3, "..#..#..#");
         resetGrid.ResetState();
         const auto expectedGrid = gol::GridState(3);
 
@@ -47,11 +47,11 @@ TEST_CASE("GridState ResetState behavior") {
 
 TEST_CASE("GridState Swap behavior") {
     {
-        auto grid1 = gol::GridStateFromASCII("..#..#..#", 3);
-        const auto expectedGrid1 = gol::GridStateFromASCII("..#..#..#", 3);
+        auto grid1 = gol::GridStateFromASCII(3, "..#..#..#");
+        const auto expectedGrid1 = gol::GridStateFromASCII(3, "..#..#..#");
 
-        auto grid2 = gol::GridStateFromASCII("#..#..#..", 3);
-        const auto expectedGrid2 = gol::GridStateFromASCII("#..#..#..", 3);
+        auto grid2 = gol::GridStateFromASCII(3, "#..#..#..");
+        const auto expectedGrid2 = gol::GridStateFromASCII(3, "#..#..#..");
 
         REQUIRE(grid1 == expectedGrid1);
         REQUIRE(grid2 == expectedGrid2);
@@ -63,8 +63,8 @@ TEST_CASE("GridState Swap behavior") {
     }
 
     {
-        auto grid1 = gol::GridStateFromASCII("..#..#..#", 3);
-        const auto expectedGrid1 = gol::GridStateFromASCII("..#..#..#", 3);
+        auto grid1 = gol::GridStateFromASCII(3, "..#..#..#");
+        const auto expectedGrid1 = gol::GridStateFromASCII(3, "..#..#..#");
 
         REQUIRE(grid1 == expectedGrid1);
 
@@ -76,16 +76,16 @@ TEST_CASE("GridState Swap behavior") {
 
 TEST_CASE("GridState Invalid input") {
     REQUIRE_THROWS_AS(gol::GridState::CreateRandom(0), std::invalid_argument);
-    REQUIRE_THROWS_AS(gol::GridState::CreateFromState({}, 0), std::invalid_argument);
-    REQUIRE_THROWS_AS(gol::GridState::CreateFromState({  gol::Cell::Dead, gol::Cell::Alive,
-                                                            gol::Cell::Dead, gol::Cell::Dead},
-                                                            0), std::invalid_argument);
-    REQUIRE_THROWS_AS(gol::GridState::CreateFromState({  gol::Cell::Dead, gol::Cell::Alive,
-                                                            gol::Cell::Dead, gol::Cell::Dead},
-                                                            -2), std::invalid_argument);
-    REQUIRE_THROWS_AS(gol::GridState::CreateFromState({  gol::Cell::Dead, gol::Cell::Alive,
-                                                            gol::Cell::Dead, gol::Cell::Dead},
-                                                            3), std::invalid_argument);
+    REQUIRE_THROWS_AS(gol::GridState::CreateFromState(0, {}), std::invalid_argument);
+    REQUIRE_THROWS_AS(gol::GridState::CreateFromState(0, {  gol::Cell::Dead, gol::Cell::Alive,
+                                                                            gol::Cell::Dead, gol::Cell::Dead}),
+                                                            std::invalid_argument);
+    REQUIRE_THROWS_AS(gol::GridState::CreateFromState(-2, {  gol::Cell::Dead, gol::Cell::Alive,
+                                                                            gol::Cell::Dead, gol::Cell::Dead}),
+                                                            std::invalid_argument);
+    REQUIRE_THROWS_AS(gol::GridState::CreateFromState(3, {  gol::Cell::Dead, gol::Cell::Alive,
+                                                                            gol::Cell::Dead, gol::Cell::Dead}),
+                                                            std::invalid_argument);
 }
 
 TEST_CASE("GridState Deterministic random initialization") {
@@ -93,7 +93,7 @@ TEST_CASE("GridState Deterministic random initialization") {
         std::mt19937 rng(42);
         const auto randomGrid = gol::GridState::CreateRandom(3, rng, 0.3);
 
-        const auto expectedGrid = gol::GridStateFromASCII(".#...#..#", 3);
+        const auto expectedGrid = gol::GridStateFromASCII(3, ".#...#..#");
 
         REQUIRE(randomGrid == expectedGrid);
     }
@@ -102,7 +102,7 @@ TEST_CASE("GridState Deterministic random initialization") {
         auto randomGrid = gol::GridState(3);
         randomGrid.RandomizeState(rng, 0.3);
 
-        const auto expectedGrid = gol::GridStateFromASCII("..#..#...", 3);
+        const auto expectedGrid = gol::GridStateFromASCII(3, "..#..#...");
 
         REQUIRE(randomGrid == expectedGrid);
     }

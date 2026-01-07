@@ -4,6 +4,7 @@
 
 #include "Common.h"
 #include "EdgeMode.h"
+#include "InitialState.h"
 #include "Ruleset.h"
 #include "TickMode.h"
 #include "Grid/GridState.h"
@@ -13,7 +14,6 @@ namespace gol {
 }
 
 namespace gol::config {
-
 struct SimulationConfig {
     SimulationConfig(const int size, const TickMode tickMode, const EdgeMode edge_mode, const Ruleset ruleset) :
     size_(size), tickMode_(tickMode), edgeMode_(edge_mode), ruleset_(ruleset) {
@@ -61,12 +61,7 @@ private:
     EdgeMode edgeMode_;
     Ruleset ruleset_;
 
-    enum class InitialState {
-        EmptyGrid,
-        RandomSeeded,
-        Random,
-        Predefined
-    } initialState_ = InitialState::EmptyGrid;
+    InitialState initialState_ = InitialState::EmptyGrid;
 
     float aliveChance_ = DefaultAliveChance;
 

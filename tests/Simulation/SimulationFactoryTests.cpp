@@ -1,5 +1,4 @@
 #include <catch2/catch_test_macros.hpp>
-#include <../tests/Utils/magic_enum.hpp>
 
 #include "Config/SimulationConfig.h"
 #include "Grid/EdgePolicies.h"
@@ -8,6 +7,7 @@
 #include "../../src/Simulation/Factory/SimulationFactory.h"
 #include "TickEngines/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"
+#include "Utils/magic_enum.hpp"
 
 TEST_CASE("Simulation Config Invalid inputs") {
 
@@ -18,7 +18,7 @@ TEST_CASE("Simulation Config Invalid inputs") {
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway);
 
-    CHECK_THROWS_AS(validConfig.UsePredefinedInitialState(gol::GridStateFromASCII("....", 2)), std::invalid_argument);
+    CHECK_THROWS_AS(validConfig.UsePredefinedInitialState(gol::GridStateFromASCII(2, "....")), std::invalid_argument);
     CHECK_THROWS_AS(validConfig.UseRandomInitialState(-1.0f), std::invalid_argument);
     CHECK_THROWS_AS(validConfig.UseRandomInitialState(2.0f), std::invalid_argument);
     CHECK_THROWS_AS(validConfig.UseSeededRandomInitialState(42, -1.0f), std::invalid_argument);
@@ -42,7 +42,7 @@ TEST_CASE("Simulation Factory Initial states correctness") {
         auto validConfig = gol::config::SimulationConfig(3, gol::config::TickMode::SingleCore,
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway);
-        const auto expectedInitialState = gol::GridStateFromASCII(".........", 3);
+        const auto expectedInitialState = gol::GridStateFromASCII(3, ".........");
         const auto sim = gol::SimulationFactory::Create(validConfig);
 
         REQUIRE(sim->GetState() == expectedInitialState);
@@ -52,8 +52,8 @@ TEST_CASE("Simulation Factory Initial states correctness") {
         auto validConfig = gol::config::SimulationConfig(3, gol::config::TickMode::SingleCore,
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway).
-                                                          UsePredefinedInitialState(gol::GridStateFromASCII(initStateASCII, 3));
-        const auto expectedInitialState = gol::GridStateFromASCII(initStateASCII, 3);
+                                                          UsePredefinedInitialState(gol::GridStateFromASCII(3, initStateASCII));
+        const auto expectedInitialState = gol::GridStateFromASCII(3, initStateASCII);
         const auto sim = gol::SimulationFactory::Create(validConfig);
 
         REQUIRE(sim->GetState() == expectedInitialState);
@@ -77,7 +77,7 @@ TEST_CASE("Simulation Factory Initial states correctness") {
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway).
                                                           UseRandomInitialState(aliveChance);
-        const auto expectedInitialState = gol::GridStateFromASCII("#########", 3);
+        const auto expectedInitialState = gol::GridStateFromASCII(3, "#########");
         const auto sim = gol::SimulationFactory::Create(validConfig);
 
         REQUIRE(sim->GetState() == expectedInitialState);
@@ -88,7 +88,7 @@ TEST_CASE("Simulation Factory Initial states correctness") {
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway).
                                                           UseRandomInitialState(aliveChance);
-        const auto expectedInitialState = gol::GridStateFromASCII(".........", 3);
+        const auto expectedInitialState = gol::GridStateFromASCII(3, ".........");
         const auto sim = gol::SimulationFactory::Create(validConfig);
 
         REQUIRE(sim->GetState() == expectedInitialState);
