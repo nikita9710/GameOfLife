@@ -10,7 +10,7 @@ class GridState {
 public:
     GridState(int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
 
-    static GridState CreateFromState(const std::vector<Cell>& gridState, int gridSize);
+    static GridState CreateFromState(int gridSize,const std::vector<Cell>& gridState);
 
     static GridState CreateRandom(int gridSize, std::mt19937& rng, float aliveCellChance = DefaultAliveChance);
 

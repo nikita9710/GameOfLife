@@ -35,7 +35,7 @@ CLIOptions CLIParser::ParseArgs(const int argc, char **argv) {
         }
         else if (arg == "--random") {
             if (res.initialState_ == InitialState::Predefined) {
-                throw std::invalid_argument("Conflicting params combination - random and predefined");
+                throw std::logic_error("Conflicting params combination - random and predefined");
             }
             if (res.initialState_ == InitialState::RandomSeeded) {
                 continue;
@@ -44,7 +44,7 @@ CLIOptions CLIParser::ParseArgs(const int argc, char **argv) {
         }
         else if (arg == "--seed") {
             if (res.initialState_ == InitialState::Predefined) {
-                throw std::invalid_argument("Conflicting params combination - random and predefined");
+                throw std::logic_error("Conflicting params combination - random and predefined");
             }
             requireValue(i, argc, argv);
             res.initialState_ = InitialState::RandomSeeded;
@@ -52,14 +52,14 @@ CLIOptions CLIParser::ParseArgs(const int argc, char **argv) {
         }
         else if (arg == "--predefined-ascii" || arg == "--ascii") {
             if (res.initialState_ == InitialState::Random || res.initialState_ == InitialState::RandomSeeded) {
-                throw std::invalid_argument("Conflicting params combination - random and predefined");
+                throw std::logic_error("Conflicting params combination - random and predefined");
             }
             if (!sizeParsed) {
-                throw std::invalid_argument("Grid size argument must be preceding predefined state");
+                throw std::logic_error("Grid size argument must be preceding predefined state");
             }
             requireValue(i, argc, argv);
             res.initialState_ = InitialState::Predefined;
-            res.predefinedState_.emplace(GridStateFromASCII(argv[++i], res.size_));
+            res.predefinedState_.emplace(GridStateFromASCII(res.size_, argv[++i]));
         }
         else if (arg == "--alive-chance" || arg == "-a") {
             requireValue(i, argc, argv);

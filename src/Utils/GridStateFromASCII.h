@@ -4,5 +4,5 @@
 #include "../Grid/GridState.h"
 
 namespace gol {
-[[nodiscard]] GridState GridStateFromASCII(std::string_view ascii, int size);
+[[nodiscard]] GridState GridStateFromASCII(int size, std::string_view ascii);
 }

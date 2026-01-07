@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <stdexcept>
 #include <string_view>
 
@@ -20,11 +21,22 @@ private:
 
     template<typename Enum>
     static Enum parseEnum(const std::string_view arg, const std::string_view val) {
-        if (auto value = magic_enum::enum_cast<Enum>(val)) {
-            return *value;
+        std::string normalized(val);
+        std::ranges::transform(normalized, normalized.begin(),
+                                [](unsigned char c) { return std::tolower(c); });
+
+        for (auto e : magic_enum::enum_values<Enum>()) {
+            std::string name(magic_enum::enum_name(e));
+            std::ranges::transform(name, name.begin(),
+                                    [](unsigned char c) { return std::tolower(c); });
+
+            if (name == normalized) {
+                return e;
+            }
         }
 
-        throw std::invalid_argument( std::string("Invalid ") + std::string(arg) + ": " + std::string(val));
+        throw std::invalid_argument(
+            std::string("Invalid ") + std::string(arg) + ": " + std::string(val));
     }
 };
 }

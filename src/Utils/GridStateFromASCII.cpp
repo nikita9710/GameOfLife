@@ -4,7 +4,7 @@
 #include <algorithm>
 
 namespace gol {
-GridState GridStateFromASCII(const std::string_view ascii, const int size) {
+GridState GridStateFromASCII(const int size, const std::string_view ascii) {
     if (size < 1) {
         throw std::invalid_argument("Grid or state size is incorrect");
     }

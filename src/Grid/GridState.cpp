@@ -31,7 +31,7 @@ bool GridState::operator==(const GridState &lhs) const {
     return GetSize() == lhs.GetSize() && GetData() == lhs.GetData();
 }
 
-GridState GridState::CreateFromState(const std::vector<Cell> &gridState, const int gridSize) {
+GridState GridState::CreateFromState(const int gridSize, const std::vector<Cell> &gridState) {
     if (gridSize < 1 || gridState.size() != gridSize*gridSize) {
         throw std::invalid_argument("Grid or state size is incorrect");
     }
