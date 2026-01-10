@@ -1,12 +1,10 @@
 #pragma once
 #include <cassert>
 
-#include "GridState.h"
-
 namespace gol {
-template<typename EdgePolicy>
+template<typename Grid, typename EdgePolicy>
 struct NeighboursCounter {
-    [[nodiscard]] static int Count(const GridState &currentState, int x, int y) {
+    [[nodiscard]] static int Count(const Grid &currentState, int x, int y) {
         const auto size = currentState.GetSize();
         assert(x >= 0 && x < size && y >= 0 && y < size);
 

@@ -7,7 +7,7 @@
 #include "InitialState.h"
 #include "Ruleset.h"
 #include "TickMode.h"
-#include "Grid/GridState.h"
+#include "Grid/DenseGrid.h"
 
 namespace gol {
     class SimulationFactory;
@@ -25,7 +25,7 @@ struct SimulationConfig {
         }
     };
 
-    [[nodiscard]] SimulationConfig& UsePredefinedInitialState(GridState state) {
+    [[nodiscard]] SimulationConfig& UsePredefinedInitialState(DenseGrid state) {
         if (state.GetSize() != size_) {
             throw std::invalid_argument("State size does not match sim size");
         }
@@ -70,7 +70,7 @@ private:
 
     std::optional<uint32_t> randomSeed_;
 
-    std::optional<GridState> predefinedState_;
+    std::optional<DenseGrid> predefinedState_;
 
     friend class gol::SimulationFactory;
 };

@@ -11,9 +11,9 @@ public:
     [[nodiscard]] static std::unique_ptr<ISimulation> Create(const config::SimulationConfig& config);
 
 private:
-    template<class Engine>
+    template<class Grid, class Engine>
     static std::unique_ptr<ISimulation> makeFactory(const config::SimulationConfig &config)  {
-        return std::make_unique<SimulationAdapter<Engine>>(config.size_, std::make_unique<Engine>());
+        return std::make_unique<SimulationAdapter<Grid, Engine>>(config.size_, std::make_unique<Engine>());
     }
     static std::unique_ptr<ISimulation> createSingleCoreSimulation(const config::SimulationConfig& config);
     static std::unique_ptr<ISimulation> createMultiCoreNaiveSimulation(const config::SimulationConfig& config);

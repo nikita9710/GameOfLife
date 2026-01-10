@@ -6,26 +6,26 @@
 #include "TickEngines/SingleCoreTick.h"
 #include "Utils/GridStateFromASCII.h"
 
-template<typename Engine>
-class TestSimulation : public gol::Simulation<Engine> {
+template<typename Grid, typename Engine>
+class TestSimulation : public gol::Simulation<Grid, Engine> {
 public:
-    using gol::Simulation<Engine>::Simulation;
+    using gol::Simulation<Grid, Engine>::Simulation;
 
-    TestSimulation(int size, std::unique_ptr<Engine> engine) : gol::Simulation<Engine>(size, std::move(engine)) { }
+    TestSimulation(int size, std::unique_ptr<Engine> engine) : gol::Simulation<Grid, Engine>(size, std::move(engine)) { }
 
     Engine* GetEngine() {
         return this->engine_.get();
     }
 };
 
-template<typename EdgePolicy, typename Rules>
-class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy, Rules> {
+template<typename Grid, typename EdgePolicy, typename Rules>
+class TestSingleCoreTick : public gol::SingleCoreTick<Grid, EdgePolicy, Rules> {
     public:
-    TestSingleCoreTick() : gol::SingleCoreTick<EdgePolicy, Rules>() { }
+    TestSingleCoreTick() : gol::SingleCoreTick<Grid, EdgePolicy, Rules>() { }
 
-    void Tick(const gol::GridState &current, gol::GridState &next) const {
+    void Tick(const gol::DenseGrid &current, gol::DenseGrid &next) const {
         TickCallCounter++;
-        gol::SingleCoreTick<EdgePolicy, Rules>::Tick(current, next);
+        gol::SingleCoreTick<Grid, EdgePolicy, Rules>::Tick(current, next);
     }
     mutable int TickCallCounter = 0;
 };
@@ -33,20 +33,22 @@ class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy, Rules> {
 TEST_CASE("Simulation Blinker test") {
     constexpr int size = 5;
 
-    auto simulation = TestSimulation(size, std::make_unique<TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>>());
-    simulation.SetState(gol::GridStateFromASCII(5, R"(.....
+    auto simulation =
+        TestSimulation<gol::DenseGrid,TestSingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>>
+            (size, std::make_unique<TestSingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>>());
+    simulation.SetState(gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                .....
                                                                .###.
                                                                .....
                                                                .....)"));
 
-    const auto originalState = gol::GridStateFromASCII(5, R"(.....
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .....
                                                                       .###.
                                                                       .....
                                                                       .....)");
 
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       ..#..
                                                                       ..#..
                                                                       ..#..

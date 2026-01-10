@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     //     50, config::TickMode::SingleCore, config::EdgeMode::Toroidal, config::Ruleset::Conway).
     //     UseRandomInitialState();
     const auto simulation = SimulationFactory::Create(simConfig);
-    const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
+    const std::unique_ptr<Printer<DenseGrid>> printer = std::make_unique<ConsolePrinter<DenseGrid>>();
     int numTicks = 0;
     double totalFrameTime = 0.0;
     while (true) {

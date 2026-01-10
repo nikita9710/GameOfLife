@@ -2,10 +2,10 @@
 #include <cassert>
 
 namespace gol {
-template<typename EdgePolicy, typename Rules>
+template<typename Grid, typename EdgePolicy, typename Rules>
 class GPUTick{
 public:
-    void Tick(const GridState &current, GridState &next) const {
+    void Tick(const Grid &current, Grid &next) const {
         assert(false && "Not implemented");
     }
 private:

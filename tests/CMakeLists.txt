@@ -1,5 +1,5 @@
 add_executable(tests Grid/ASCIIParserTests.cpp
-        Grid/GridStateTests.cpp
+        Grid/DenseGridTests.cpp
         Rules/RulesNextStatesTests.cpp
         Simulation/SingleCoreTickTests.cpp
         Simulation/SimulationTests.cpp

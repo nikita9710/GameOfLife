@@ -3,7 +3,7 @@
 #include "Simulation.h"
 
 namespace gol {
-template<typename Engine>
+template<typename Grid, typename Engine>
 class SimulationAdapter : public ISimulation {
 public:
     explicit SimulationAdapter(int size, std::unique_ptr<Engine> engine) : sim_(size, std::move(engine)) { }
@@ -12,14 +12,14 @@ public:
         sim_.Tick();
     }
 
-    [[nodiscard]] const GridState & GetState() const override {
+    [[nodiscard]] const Grid & GetState() const override {
         return sim_.GetState();
     }
 
 private:
-    void setState(GridState state) override {
+    void setState(Grid state) override {
         sim_.SetState(state);
     }
-    Simulation<Engine> sim_;
+    Simulation<Grid, Engine> sim_;
 };
 }

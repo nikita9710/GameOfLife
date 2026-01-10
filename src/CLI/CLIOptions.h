@@ -42,7 +42,7 @@ private:
     Ruleset ruleset_ = Ruleset::Conway;
     std::optional<int> seed_;
     float aliveChance_ = DefaultAliveChance;
-    std::optional<GridState> predefinedState_;
+    std::optional<DenseGrid> predefinedState_;
     InitialState initialState_ = InitialState::EmptyGrid;
 };
 }

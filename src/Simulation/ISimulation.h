@@ -1,15 +1,15 @@
 #pragma once
 
 namespace gol {
-class GridState;
+class DenseGrid;
 
 class ISimulation {
 public:
     virtual ~ISimulation() = default;
     virtual void Tick() = 0;
-    [[nodiscard]] virtual const GridState& GetState() const = 0;
+    [[nodiscard]] virtual const DenseGrid& GetState() const = 0;
 private:
-    virtual void setState(GridState state) = 0;
+    virtual void setState(DenseGrid state) = 0;
     friend class SimulationFactory;
 };
 }

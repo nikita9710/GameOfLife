@@ -6,17 +6,17 @@
 #include "../Common.h"
 
 namespace gol {
-class GridState {
+class DenseGrid {
 public:
-    GridState(int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
+    DenseGrid(int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
 
-    static GridState CreateFromState(int gridSize,const std::vector<Cell>& gridState);
+    static DenseGrid CreateFromState(int gridSize,const std::vector<Cell>& grid);
 
-    static GridState CreateRandom(int gridSize, std::mt19937& rng, float aliveCellChance = DefaultAliveChance);
+    static DenseGrid CreateRandom(int gridSize, std::mt19937& rng, float aliveCellChance = DefaultAliveChance);
 
-    static GridState CreateRandom(int gridSize, float aliveCellChance = DefaultAliveChance);
+    static DenseGrid CreateRandom(int gridSize, float aliveCellChance = DefaultAliveChance);
 
-    void Swap(GridState &other);
+    void Swap(DenseGrid &other);
 
     void RandomizeState(float aliveCellChance);
     void RandomizeState(std::mt19937& rng, float aliveCellChance);
@@ -42,7 +42,7 @@ public:
         return state_;
     }
 
-    bool operator==(const GridState &lhs) const;
+    bool operator==(const DenseGrid &lhs) const;
 
 private:
     const int size_;
