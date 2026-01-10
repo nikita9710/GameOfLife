@@ -14,6 +14,9 @@ TEST_CASE("Simulation Config Invalid inputs") {
     CHECK_THROWS_AS(gol::config::SimulationConfig(-1, gol::config::TickMode::SingleCore,
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway), std::invalid_argument);
+    CHECK_THROWS_AS(gol::config::SimulationConfig(10001, gol::config::TickMode::SingleCore,
+                                                          gol::config::EdgeMode::Toroidal,
+                                                          gol::config::Ruleset::Conway), std::invalid_argument);
     auto validConfig = gol::config::SimulationConfig(3, gol::config::TickMode::SingleCore,
                                                           gol::config::EdgeMode::Toroidal,
                                                           gol::config::Ruleset::Conway);

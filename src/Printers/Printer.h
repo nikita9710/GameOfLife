@@ -8,6 +8,6 @@ public:
 
     virtual void PrintGrid(const GridState& grid_state) const = 0;
 
-    virtual void PrintStats(double lastFrameTime) const = 0;
+    virtual void PrintStats(double lastFrameTime, double avgFrameTime) const = 0;
 };
 }

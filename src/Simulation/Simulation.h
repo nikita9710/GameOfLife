@@ -7,10 +7,10 @@ namespace gol {
 template<typename Engine>
 class Simulation {
 public:
-    explicit Simulation(const int size, Engine engine = {}) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
+    explicit Simulation(const int size, std::unique_ptr<Engine> engine) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
 
     void Tick() {
-        engine_.Tick(currentState_, nextState_);
+        engine_->Tick(currentState_, nextState_);
         currentState_.Swap(nextState_);
     }
 
@@ -30,7 +30,7 @@ public:
         currentState_.ResetState();
     }
 protected:
-    Engine engine_;
+    std::unique_ptr<Engine> engine_;
 
     GridState currentState_;
 

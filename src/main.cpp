@@ -21,14 +21,18 @@ int main(int argc, char** argv) {
     //     UseRandomInitialState();
     const auto simulation = SimulationFactory::Create(simConfig);
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
-
+    int numTicks = 0;
+    double totalFrameTime = 0.0;
     while (true) {
         auto timeBeforeTick = std::chrono::system_clock::now();
         simulation->Tick();
         const auto timeAfterTick = std::chrono::system_clock::now();
         printer->PrintGrid(simulation->GetState());
-        printer->PrintStats(std::chrono::duration_cast<std::chrono::microseconds>(timeAfterTick - timeBeforeTick).count()/1000.0);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        const auto frameTime = std::chrono::duration_cast<std::chrono::microseconds>(timeAfterTick - timeBeforeTick).count()/1000.0;
+        totalFrameTime += frameTime;
+        printer->PrintStats(frameTime, totalFrameTime/numTicks);
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        numTicks++;
     }
 
     return 0;

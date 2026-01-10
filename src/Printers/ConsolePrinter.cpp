@@ -17,9 +17,9 @@ void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
     }
 }
 
-void ConsolePrinter::PrintStats(double lastFrameTime) const {
+void ConsolePrinter::PrintStats(double lastFrameTime, double avgFrameTime) const {
     std::cout << "-----------------------------------------------------" << std::endl;
-    std::cout << "last frame time " << lastFrameTime << "ms"  << std::endl;
+    std::cout << "last frame time " << lastFrameTime << "ms" << ", avg frame time " << avgFrameTime << "ms"  << std::endl;
     std::cout << "-----------------------------------------------------" << std::endl;
 }
 }

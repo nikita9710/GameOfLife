@@ -5,14 +5,14 @@ todo:
 - ~~console commands for quick settings~~ (-c console, -g gui, -v verbose, etc), --help text, ~~Simulation factory~~, ~~settings (size, tick engine, rules)~~
 - ~~edges rule (toroidal vs clamped, template on gridState)~~
 - better telemetry (memory use, fps, etc)
-- multicore
+- ~~multicore~~
+- memory use optimization (bit-packed grid)
 - input (sim speed, pause, step, reset)
 - webGPU grid rendering
 - benchmarking
 - rules via variadic template, custom rule strings
 - comments, doxygen?
 - gui
-- memory use optimization
 - gpu (cuda?)
 - ci/cd
 - update readme

@@ -20,6 +20,9 @@ struct SimulationConfig {
         if (size < 1) {
             throw std::invalid_argument("Invalid size");
         }
+        if (size > 10000) {
+            throw std::invalid_argument("Simulation size is too big, max size is 10000");
+        }
     };
 
     [[nodiscard]] SimulationConfig& UsePredefinedInitialState(GridState state) {
