@@ -3,7 +3,7 @@ add_library(gol
         Common.h
         TickEngines/SingleCoreTick.h
         TickEngines/GPUTick.h
-        TickEngines/MultiCoreTick.h
+        TickEngines/MultiCoreNaiveTick.h
         Grid/GridState.cpp
         Grid/GridState.h
         Printers/Printer.h
@@ -29,6 +29,7 @@ add_library(gol
         CLI/CLIParser.cpp
         CLI/CLIParser.h
         Config/InitialState.h
+        TickEngines/RowProcessor.h
 )
 
 target_include_directories(gol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

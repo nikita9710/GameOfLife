@@ -11,7 +11,7 @@ TEST_CASE("MultiCore Tick correctness") {
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);
 
-        auto multicoreConfig = gol::config::SimulationConfig(size, gol::config::TickMode::MultiCore,
+        auto multicoreConfig = gol::config::SimulationConfig(size, gol::config::TickMode::MultiCoreNaive,
                                                               gol::config::EdgeMode::Toroidal,
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);
