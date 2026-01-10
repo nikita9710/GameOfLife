@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
         const auto frameTime = std::chrono::duration_cast<std::chrono::microseconds>(timeAfterTick - timeBeforeTick).count()/1000.0;
         totalFrameTime += frameTime;
         printer->PrintStats(frameTime, totalFrameTime/numTicks);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
         numTicks++;
     }
 

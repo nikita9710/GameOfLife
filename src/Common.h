@@ -4,7 +4,7 @@
 namespace gol {
 constexpr float DefaultAliveChance = 0.3;
 
-constexpr int MaxThreadsCound = 8;
+constexpr int MaxThreadsCount = 8;
 
 inline constexpr char AliveAscii = '#';
 inline constexpr char DeadAscii = '.';

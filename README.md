@@ -6,13 +6,13 @@ todo:
 - ~~edges rule (toroidal vs clamped, template on gridState)~~
 - better telemetry (memory use, fps, etc)
 - ~~multicore~~
+- memory use optimization (bit-packed grid)
 - input (sim speed, pause, step, reset)
 - webGPU grid rendering
 - benchmarking
 - rules via variadic template, custom rule strings
 - comments, doxygen?
 - gui
-- memory use optimization
 - gpu (cuda?)
 - ci/cd
 - update readme

@@ -11,10 +11,10 @@ class TestSimulation : public gol::Simulation<Engine> {
 public:
     using gol::Simulation<Engine>::Simulation;
 
-    TestSimulation(int size, Engine engine = {}) : gol::Simulation<Engine>(size, engine) { }
+    TestSimulation(int size, std::unique_ptr<Engine> engine) : gol::Simulation<Engine>(size, std::move(engine)) { }
 
-    Engine& Getengine() {
-        return this->engine_;
+    Engine* GetEngine() {
+        return this->engine_.get();
     }
 };
 
@@ -33,8 +33,7 @@ class TestSingleCoreTick : public gol::SingleCoreTick<EdgePolicy, Rules> {
 TEST_CASE("Simulation Blinker test") {
     constexpr int size = 5;
 
-    const auto engine = TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
-    auto simulation = TestSimulation(size, engine);
+    auto simulation = TestSimulation(size, std::make_unique<TestSingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>>());
     simulation.SetState(gol::GridStateFromASCII(5, R"(.....
                                                                .....
                                                                .###.
@@ -54,9 +53,9 @@ TEST_CASE("Simulation Blinker test") {
                                                                       .....)");
 
     for (int i = 0; i < 10; ++i) {
-        REQUIRE(simulation.Getengine().TickCallCounter == i);
+        REQUIRE(simulation.GetEngine()->TickCallCounter == i);
         simulation.Tick();
-        REQUIRE(simulation.Getengine().TickCallCounter == i+1);
+        REQUIRE(simulation.GetEngine()->TickCallCounter == i+1);
         if (i % 2 == 0) {
             REQUIRE(simulation.GetState() == expectedState);
         }

@@ -3,7 +3,6 @@
 #include <thread>
 
 #include "RowProcessor.h"
-#include "Grid/NeighboursCounter.h"
 
 namespace gol {
 template<typename EdgePolicy, typename Rules>
@@ -11,7 +10,7 @@ class MultiCoreNaiveTick {
 public:
     void Tick(const GridState &current, GridState &next) const {
         const int size = current.GetSize();
-        const int threadsCount = std::min(MaxThreadsCound, size);
+        const int threadsCount = std::min(MaxThreadsCount, size);
 
         std::vector<std::jthread> threads;
         threads.reserve(threadsCount);

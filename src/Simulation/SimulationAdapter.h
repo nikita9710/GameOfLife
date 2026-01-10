@@ -6,7 +6,7 @@ namespace gol {
 template<typename Engine>
 class SimulationAdapter : public ISimulation {
 public:
-    explicit SimulationAdapter(int size, Engine engine = {}) : sim_(size, std::move(engine)) { }
+    explicit SimulationAdapter(int size, std::unique_ptr<Engine> engine) : sim_(size, std::move(engine)) { }
 
     void Tick() override {
         sim_.Tick();
@@ -20,6 +20,6 @@ private:
     void setState(GridState state) override {
         sim_.SetState(state);
     }
- Simulation<Engine> sim_;
+    Simulation<Engine> sim_;
 };
 }
