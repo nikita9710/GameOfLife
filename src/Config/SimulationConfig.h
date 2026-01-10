@@ -7,6 +7,7 @@
 #include "InitialState.h"
 #include "Ruleset.h"
 #include "TickMode.h"
+#include "GridMode.h"
 #include "Grid/DenseGrid.h"
 
 namespace gol {
@@ -15,8 +16,8 @@ namespace gol {
 
 namespace gol::config {
 struct SimulationConfig {
-    SimulationConfig(const int size, const TickMode tickMode, const EdgeMode edge_mode, const Ruleset ruleset) :
-    size_(size), tickMode_(tickMode), edgeMode_(edge_mode), ruleset_(ruleset) {
+    SimulationConfig(const int size, const GridMode gridMode, const TickMode tickMode, const EdgeMode edge_mode, const Ruleset ruleset) :
+            size_(size), gridMode_(gridMode), tickMode_(tickMode), edgeMode_(edge_mode), ruleset_(ruleset) {
         if (size < 1) {
             throw std::invalid_argument("Invalid size");
         }
@@ -60,6 +61,7 @@ private:
 
     int size_;
 
+    GridMode gridMode_;
     TickMode tickMode_;
     EdgeMode edgeMode_;
     Ruleset ruleset_;

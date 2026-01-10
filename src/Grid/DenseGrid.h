@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <array>
 #include <random>
 
 #include "../Common.h"
@@ -8,13 +7,21 @@
 namespace gol {
 class DenseGrid {
 public:
-    DenseGrid(int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
+    explicit DenseGrid(const int size) : size_(size), state_(size_ * size_, Cell::Dead) { }
 
     static DenseGrid CreateFromState(int gridSize,const std::vector<Cell>& grid);
 
     static DenseGrid CreateRandom(int gridSize, std::mt19937& rng, float aliveCellChance = DefaultAliveChance);
 
     static DenseGrid CreateRandom(int gridSize, float aliveCellChance = DefaultAliveChance);
+
+    static DenseGrid ConvertToTemplate(const DenseGrid &denseGrid) {
+        return denseGrid;
+    }
+
+    [[nodiscard]] DenseGrid ConvertToDenseGrid() const {
+        return *this;
+    }
 
     void Swap(DenseGrid &other);
 
@@ -23,8 +30,9 @@ public:
 
     void ResetState();
 
-    Cell& operator[](const int index) { return state_[index]; }
-    const Cell& operator[](const int index) const { return state_[index]; }
+    void SetCell(const int index, const Cell cell) {
+        state_[index] = cell;
+    }
 
     [[nodiscard]] bool IsCellAlive(const int index) const {
         return state_[index] == Cell::Alive;

@@ -3,6 +3,7 @@
 
 #include "Common.h"
 #include "Config/EdgeMode.h"
+#include "Config/GridMode.h"
 #include "Config/Ruleset.h"
 #include "Config/SimulationConfig.h"
 #include "Config/TickMode.h"
@@ -10,7 +11,7 @@
 namespace gol::config {
 struct CLIOptions {
     [[nodiscard]] SimulationConfig MakeConfig() const {
-        auto config = SimulationConfig(size_, tickMode_, edgeMode_, ruleset_);
+        auto config = SimulationConfig(size_, gridMode_, tickMode_, edgeMode_, ruleset_);
         switch (initialState_) {
             case InitialState::EmptyGrid:
                 return config;
@@ -37,6 +38,7 @@ private:
     friend class CLIParser;
 
     int size_ = 50;
+    GridMode gridMode_ = GridMode::Dense;
     TickMode tickMode_ = TickMode::SingleCore;
     EdgeMode edgeMode_ = EdgeMode::Toroidal;
     Ruleset ruleset_ = Ruleset::Conway;

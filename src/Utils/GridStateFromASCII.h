@@ -25,7 +25,7 @@ namespace gol {
                 ++j;
             }
 
-            newState[i] = ascii[j] == AliveAscii ? Cell::Alive : Cell::Dead;
+            newState.SetCell(i, ascii[j] == AliveAscii ? Cell::Alive : Cell::Dead);
             ++j;
         }
 

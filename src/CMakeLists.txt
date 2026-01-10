@@ -7,6 +7,7 @@ add_library(gol
         Grid/DenseGrid.cpp
         Grid/DenseGrid.h
         Printers/Printer.h
+        Printers/ConsolePrinter.cpp
         Printers/ConsolePrinter.h
         Rules/RulesBase.h
         Rules/ConwayRules.h
@@ -29,6 +30,8 @@ add_library(gol
         Config/InitialState.h
         TickEngines/RowProcessor.h
         Config/GridMode.h
+        Grid/BitGrid.h
+        Grid/BitGrid.cpp
 )
 
 target_include_directories(gol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

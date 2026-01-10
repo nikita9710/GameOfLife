@@ -12,14 +12,19 @@ public:
         sim_.Tick();
     }
 
-    [[nodiscard]] const Grid & GetState() const override {
-        return sim_.GetState();
+    [[nodiscard]] DenseGrid GetState() const override {
+        DenseGrid res = sim_.GetState().ConvertToDenseGrid();
+        return res;
     }
 
 private:
-    void setState(Grid state) override {
-        sim_.SetState(state);
+    void setState(DenseGrid state) override {
+        Grid convertedState = Grid::ConvertToTemplate(state);
+        sim_.SetState(convertedState);
     }
+
     Simulation<Grid, Engine> sim_;
+
+    friend class SimulationFactory;
 };
 }

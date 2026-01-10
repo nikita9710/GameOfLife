@@ -25,7 +25,7 @@ TEST_CASE("DenseGrid operator== behavior") {
 
         REQUIRE(grid1 == expectedGrid1);
 
-        grid1[0] = gol::Cell::Alive;
+        grid1.SetCell(0, gol::Cell::Alive);
         REQUIRE_FALSE(grid1 == expectedGrid1);
 
         const auto grid2 = gol::DenseGrid(3);

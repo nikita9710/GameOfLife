@@ -7,5 +7,6 @@ add_executable(tests Grid/ASCIIParserTests.cpp
         Simulation/SimulationFactoryTests.cpp
         ../src/Utils/magic_enum.hpp
         CLI/CLIParserTests.cpp
-        Simulation/MultiCoreTickTests.cpp)
+        Simulation/MultiCoreTickTests.cpp
+        Grid/BitGridTests.cpp)
 target_link_libraries(tests PRIVATE gol Catch2::Catch2WithMain)

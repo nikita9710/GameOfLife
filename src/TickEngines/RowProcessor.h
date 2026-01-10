@@ -12,9 +12,9 @@ public:
             const int index = base + j;
             const int aliveNeighbours = NeighboursCounter<Grid, EdgePolicy>::Count(current, row, j);
             const bool alive = current.IsCellAlive(index);
-            next[index] =
+            next.SetCell(index,
                 (alive && rules.IsNextStateStable(aliveNeighbours)) ||
-                (!alive && rules.IsNextStateBirth(aliveNeighbours)) ? Cell::Alive : Cell::Dead;
+                (!alive && rules.IsNextStateBirth(aliveNeighbours)) ? Cell::Alive : Cell::Dead);
         }
     }
 };
