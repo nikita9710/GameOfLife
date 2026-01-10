@@ -7,7 +7,7 @@
 #include "RowProcessor.h"
 
 namespace gol {
-template<typename EdgePolicy, typename Rules>
+template<typename Grid, typename EdgePolicy, typename Rules>
 class MultiCorePoolTick {
 public:
     MultiCorePoolTick() : mainBarrier(MaxThreadsCount + 1),
@@ -30,7 +30,7 @@ public:
         cv_.notify_all();
     }
 
-    void Tick(const GridState &current, GridState &next) const {
+    void Tick(const Grid &current, Grid &next) const {
         {
             std::unique_lock lock(mutex_);
             jobContext_.size = current.GetSize();
@@ -56,8 +56,8 @@ private:
     struct JobContext {
         constexpr static int chunkSize = 16;
         int size = 0;
-        const GridState *current = nullptr;
-        GridState *next = nullptr;
+        const Grid *current = nullptr;
+        Grid *next = nullptr;
         bool ready = false;
 
         alignas(64) std::atomic<int> nextRowIndex = 0;
@@ -98,9 +98,9 @@ private:
         }
     }
 
-    void computeChunk(const int startRowIndex, const int lastRowIndex, const int size, const GridState &current, GridState &next) {
+    void computeChunk(const int startRowIndex, const int lastRowIndex, const int size, const Grid &current, Grid &next) {
         for (int rowIndex = startRowIndex; rowIndex < lastRowIndex; rowIndex++) {
-            RowProcessor<EdgePolicy, Rules>::compute(rowIndex, size, rules_, current, next);
+            RowProcessor<Grid, EdgePolicy, Rules>::compute(rowIndex, size, rules_, current, next);
         }
     }
 };

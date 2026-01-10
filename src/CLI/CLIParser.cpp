@@ -33,6 +33,10 @@ CLIOptions CLIParser::ParseArgs(const int argc, char **argv) {
             requireValue(i, argc, argv);
             res.tickMode_ = parseEnum<TickMode>(arg, argv[++i]);
         }
+        else if (arg == "--grid" || arg == "-g") {
+            requireValue(i, argc, argv);
+            res.gridMode_ = parseEnum<GridMode>(arg, argv[++i]);
+        }
         else if (arg == "--random") {
             if (res.initialState_ == InitialState::Predefined) {
                 throw std::logic_error("Conflicting params combination - random and predefined");
@@ -59,7 +63,7 @@ CLIOptions CLIParser::ParseArgs(const int argc, char **argv) {
             }
             requireValue(i, argc, argv);
             res.initialState_ = InitialState::Predefined;
-            res.predefinedState_.emplace(GridStateFromASCII(res.size_, argv[++i]));
+            res.predefinedState_.emplace(GridStateFromASCII<gol::DenseGrid>(res.size_, argv[++i]));
         }
         else if (arg == "--alive-chance" || arg == "-a") {
             requireValue(i, argc, argv);

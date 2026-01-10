@@ -16,9 +16,6 @@ int main(int argc, char** argv) {
         return 0;
     }
     const auto simConfig = config::CLIParser::ParseArgs(argc, argv).MakeConfig();
-    // const auto simConfig = config::SimulationConfig(
-    //     50, config::TickMode::SingleCore, config::EdgeMode::Toroidal, config::Ruleset::Conway).
-    //     UseRandomInitialState();
     const auto simulation = SimulationFactory::Create(simConfig);
     const std::unique_ptr<Printer> printer = std::make_unique<ConsolePrinter>();
     int numTicks = 0;

@@ -9,7 +9,7 @@ TEST_CASE("CLI Parser Valid input") {
     {
         const char* argv[] = { "app" };
         int argc = 1;
-        const auto expectedGrid = gol::GridState(50);
+        const auto expectedGrid = gol::DenseGrid(50);
 
         const auto config = gol::config::CLIParser::ParseArgs(argc, const_cast<char**>(argv)).MakeConfig();
         const auto sim = gol::SimulationFactory::Create(config);
@@ -29,7 +29,7 @@ TEST_CASE("CLI Parser Valid input") {
         };
         int argc = 14;
         std::mt19937 rng(42);
-        const auto expectedGrid = gol::GridState::CreateRandom(5, rng, 0.5);
+        const auto expectedGrid = gol::DenseGrid::CreateRandom(5, rng, 0.5);
 
 
         const auto config = gol::config::CLIParser::ParseArgs(argc, const_cast<char**>(argv)).MakeConfig();
@@ -46,7 +46,7 @@ TEST_CASE("CLI Parser Valid input") {
             "--edges", "Toroidal"
         };
         int argc = 9;
-        const auto expectedGrid = gol::GridStateFromASCII(3, "...###...");
+        const auto expectedGrid = gol::GridStateFromASCII<gol::DenseGrid>(3, "...###...");
 
 
         const auto config = gol::config::CLIParser::ParseArgs(argc, const_cast<char**>(argv)).MakeConfig();

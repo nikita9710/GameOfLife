@@ -6,7 +6,8 @@ todo:
 - ~~edges rule (toroidal vs clamped, template on gridState)~~
 - better telemetry (memory use, fps, etc)
 - ~~multicore~~
-- memory use optimization (bit-packed grid)
+~~- memory use optimization (bit-packed grid)~~
+- bitGrid algs
 - input (sim speed, pause, step, reset)
 - webGPU grid rendering
 - benchmarking

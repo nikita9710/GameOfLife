@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 namespace gol {
-void ConsolePrinter::PrintGrid(const GridState &grid_state) const {
+void ConsolePrinter::PrintGrid(const DenseGrid &grid_state) const {
     system("clear");
     if (grid_state.GetSize() > 50) {
         std::cout << "Grid is too big for the console, max size is 50" << std::endl;

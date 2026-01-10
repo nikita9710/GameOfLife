@@ -5,10 +5,10 @@
 #include "RowProcessor.h"
 
 namespace gol {
-template<typename EdgePolicy, typename Rules>
+template<typename Grid, typename EdgePolicy, typename Rules>
 class MultiCoreNaiveTick {
 public:
-    void Tick(const GridState &current, GridState &next) const {
+    void Tick(const Grid &current, Grid &next) const {
         const int size = current.GetSize();
         const int threadsCount = std::min(MaxThreadsCount, size);
 
@@ -26,9 +26,9 @@ public:
 private:
     Rules rules_;
 
-    void threadJob(const int startRowIndex, const int lastRowIndex, const int size, const GridState &current, GridState &next) const {
+    void threadJob(const int startRowIndex, const int lastRowIndex, const int size, const Grid &current, Grid &next) const {
         for (int rowIndex = startRowIndex; rowIndex < lastRowIndex; rowIndex++) {
-            RowProcessor<EdgePolicy, Rules>::compute(rowIndex, size, rules_, current, next);
+            RowProcessor<Grid, EdgePolicy, Rules>::compute(rowIndex, size, rules_, current, next);
         }
     }
 };

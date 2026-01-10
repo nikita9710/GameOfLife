@@ -3,13 +3,13 @@
 #include "../Grid/NeighboursCounter.h"
 
 namespace gol {
-template<typename EdgePolicy, typename Rules>
+template<typename Grid, typename EdgePolicy, typename Rules>
 class SingleCoreTick {
 public:
-    void Tick(const GridState &current, GridState &next) const {
+    void Tick(const Grid &current, Grid &next) const {
         const int size = current.GetSize();
         for (int i = 0; i < size; i++) {
-            RowProcessor<EdgePolicy, Rules>::compute(i, size, rules_, current, next);
+            RowProcessor<Grid, EdgePolicy, Rules>::compute(i, size, rules_, current, next);
         }
     }
 private:

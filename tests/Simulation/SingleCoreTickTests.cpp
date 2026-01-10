@@ -6,25 +6,25 @@
 #include "Utils/GridStateFromASCII.h"
 
 TEST_CASE("Single Core Tick Conway Toroidal Blinker pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(.....
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                      .....
                                                                      .###.
                                                                      .....
                                                                      .....)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(.....
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .....
                                                                       .###.
                                                                       .....
                                                                       .....)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       ..#..
                                                                       ..#..
                                                                       ..#..
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -40,25 +40,25 @@ TEST_CASE("Single Core Tick Conway Toroidal Blinker pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Toroidal over edge Blinker pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(..#..
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(..#..
                                                                      ..#..
                                                                      .....
                                                                      .....
                                                                      ..#..)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(..#..
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(..#..
                                                                       ..#..
                                                                       .....
                                                                       .....
                                                                       ..#..)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.###.
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.###.
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -83,25 +83,25 @@ TEST_CASE("Single Core Tick Conway Toroidal over edge Blinker pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Toroidal over edge Block pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(#...#
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(#...#
                                                                      .....
                                                                      .....
                                                                      .....
                                                                      #...#)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(#...#
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(#...#
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       #...#)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(#...#
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(#...#
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       #...#)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -117,25 +117,25 @@ TEST_CASE("Single Core Tick Conway Toroidal over edge Block pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Toroidal Block pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(.....
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                      .##..
                                                                      .##..
                                                                      .....
                                                                      .....)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(.....
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .##..
                                                                       .##..
                                                                       .....
                                                                       .....)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .##..
                                                                       .##..
                                                                       .....
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -152,13 +152,13 @@ TEST_CASE("Single Core Tick Conway Toroidal Block pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Toroidal Overpopulation") {
-    const auto currentState = gol::GridStateFromASCII(5, "#########################");
-    const auto originalState = gol::GridStateFromASCII(5, "#########################");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, ".........................");
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -174,13 +174,13 @@ TEST_CASE("Single Core Tick Conway Toroidal Overpopulation") {
 }
 
 TEST_CASE("Single Core Tick Conway Toroidal All dead") {
-    const auto currentState = gol::GridStateFromASCII(5, ".........................");
-    const auto originalState = gol::GridStateFromASCII(5, ".........................");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, ".........................");
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ToroidalEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -196,25 +196,25 @@ TEST_CASE("Single Core Tick Conway Toroidal All dead") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped Blinker pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(.....
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                      .....
                                                                      .###.
                                                                      .....
                                                                      .....)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(.....
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .....
                                                                       .###.
                                                                       .....
                                                                       .....)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       ..#..
                                                                       ..#..
                                                                       ..#..
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -230,25 +230,25 @@ TEST_CASE("Single Core Tick Conway Clamped Blinker pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped over edge Blinker pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(..#..
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(..#..
                                                                      ..#..
                                                                      .....
                                                                      .....
                                                                      ..#..)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(..#..
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(..#..
                                                                       ..#..
                                                                       .....
                                                                       .....
                                                                       ..#..)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -273,25 +273,25 @@ TEST_CASE("Single Core Tick Conway Clamped over edge Blinker pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped over edge Block pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(#...#
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(#...#
                                                                      .....
                                                                      .....
                                                                      .....
                                                                      #...#)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(#...#
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(#...#
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       #...#)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .....
                                                                       .....
                                                                       .....
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -307,25 +307,25 @@ TEST_CASE("Single Core Tick Conway Clamped over edge Block pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped Block pattern") {
-    const auto currentState = gol::GridStateFromASCII(5, R"(.....
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                      .##..
                                                                      .##..
                                                                      .....
                                                                      .....)");
-    const auto originalState = gol::GridStateFromASCII(5, R"(.....
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .##..
                                                                       .##..
                                                                       .....
                                                                       .....)");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, R"(.....
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, R"(.....
                                                                       .##..
                                                                       .##..
                                                                       .....
                                                                       .....)");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -342,14 +342,14 @@ TEST_CASE("Single Core Tick Conway Clamped Block pattern") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped Overpopulation") {
-    const auto currentState = gol::GridStateFromASCII(5, "#########################");
-    const auto originalState = gol::GridStateFromASCII(5, "#########################");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState1 = gol::GridStateFromASCII(5, "#...#...............#...#");
-    const auto expectedState2 = gol::GridStateFromASCII(5, ".........................");
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#...#...............#...#");
+    const auto expectedState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 
@@ -373,13 +373,13 @@ TEST_CASE("Single Core Tick Conway Clamped Overpopulation") {
 }
 
 TEST_CASE("Single Core Tick Conway Clamped All dead") {
-    const auto currentState = gol::GridStateFromASCII(5, ".........................");
-    const auto originalState = gol::GridStateFromASCII(5, ".........................");
-    auto nextState1 = gol::GridStateFromASCII(5, ".........................");
-    auto nextState2 = gol::GridStateFromASCII(5, "#########################");
-    const auto expectedState = gol::GridStateFromASCII(5, ".........................");
+    const auto currentState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    const auto originalState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState1 = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
+    auto nextState2 = gol::GridStateFromASCII<gol::DenseGrid>(5, "#########################");
+    const auto expectedState = gol::GridStateFromASCII<gol::DenseGrid>(5, ".........................");
 
-    const auto singleCoreEngine = gol::SingleCoreTick<gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
+    const auto singleCoreEngine = gol::SingleCoreTick<gol::DenseGrid, gol::ClampedEdgePolicy, gol::rules::ConwayRules>();
     {
         singleCoreEngine.Tick(currentState, nextState1);
 

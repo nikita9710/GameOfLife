@@ -1,17 +1,18 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include "Config/GridMode.h"
 #include "Config/SimulationConfig.h"
 #include "Simulation/Factory/SimulationFactory.h"
 
 TEST_CASE("MultiCore Naive Tick correctness") {
     const int stepsNum = 50;
     for (const int sizesToTest[] = {1, 2, 3, 10, 100}; int size : sizesToTest) {
-        auto singlecoreConfig = gol::config::SimulationConfig(size, gol::config::TickMode::SingleCore,
+        auto singlecoreConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::SingleCore,
                                                               gol::config::EdgeMode::Toroidal,
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);
 
-        auto multicoreNaiveConfig = gol::config::SimulationConfig(size, gol::config::TickMode::MultiCoreNaive,
+        auto multicoreNaiveConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::MultiCoreNaive,
                                                               gol::config::EdgeMode::Toroidal,
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);
@@ -30,12 +31,12 @@ TEST_CASE("MultiCore Naive Tick correctness") {
 TEST_CASE("MultiCore Pool Tick correctness") {
     const int stepsNum = 50;
     for (const int sizesToTest[] = {1, 2, 3, 10, 100}; int size : sizesToTest) {
-        auto singlecoreConfig = gol::config::SimulationConfig(size, gol::config::TickMode::SingleCore,
+        auto singlecoreConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::SingleCore,
                                                               gol::config::EdgeMode::Toroidal,
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);
 
-        auto multicorePoolConfig = gol::config::SimulationConfig(size, gol::config::TickMode::MultiCorePool,
+        auto multicorePoolConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::MultiCorePool,
                                                               gol::config::EdgeMode::Toroidal,
                                                               gol::config::Ruleset::Conway).
                                                               UseSeededRandomInitialState(size);

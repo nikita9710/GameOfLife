@@ -1,10 +1,10 @@
 #pragma once
 #include <memory>
 
-#include "../Grid/GridState.h"
+#include "../Grid/DenseGrid.h"
 
 namespace gol {
-template<typename Engine>
+template<typename Grid, typename Engine>
 class Simulation {
 public:
     explicit Simulation(const int size, std::unique_ptr<Engine> engine) : engine_(std::move(engine)), currentState_(size), nextState_(size) { }
@@ -14,11 +14,11 @@ public:
         currentState_.Swap(nextState_);
     }
 
-    [[nodiscard]] const GridState& GetState() const {
+    [[nodiscard]] const Grid& GetState() const {
         return currentState_;
     }
 
-    void SetState(GridState newState) {
+    void SetState(Grid newState) {
         currentState_.Swap(newState);
     }
 
@@ -32,8 +32,8 @@ public:
 protected:
     std::unique_ptr<Engine> engine_;
 
-    GridState currentState_;
+    Grid currentState_;
 
-    GridState nextState_;
+    Grid nextState_;
 };
 }

@@ -4,8 +4,8 @@ add_library(gol
         TickEngines/SingleCoreTick.h
         TickEngines/GPUTick.h
         TickEngines/MultiCoreNaiveTick.h
-        Grid/GridState.cpp
-        Grid/GridState.h
+        Grid/DenseGrid.cpp
+        Grid/DenseGrid.h
         Printers/Printer.h
         Printers/ConsolePrinter.cpp
         Printers/ConsolePrinter.h
@@ -13,7 +13,6 @@ add_library(gol
         Rules/ConwayRules.h
         Rules/SeedsRules.h
         Rules/ReplicatorRules.h
-        Utils/GridStateFromASCII.cpp
         Utils/GridStateFromASCII.h
         Grid/EdgePolicies.h
         Grid/NeighboursCounter.h
@@ -30,6 +29,9 @@ add_library(gol
         CLI/CLIParser.h
         Config/InitialState.h
         TickEngines/RowProcessor.h
+        Config/GridMode.h
+        Grid/BitGrid.h
+        Grid/BitGrid.cpp
 )
 
 target_include_directories(gol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
