@@ -1,3 +1,13 @@
+noteable features:
+- modularity and template-heavy implementation
+- multithreaded implementation (naive concurrent static separation and worker pool chunk processing)
+- heavy unit testing of all features and options
+- bit-packed grid implementation (allows much bigger grids and much less memory use, with up to 2-3x performance)
+- bit-wise SIMD processing ()
+- full customized runs with cli args (full info in --help todo)
+- factory class for templated simulations in runtime, allowing any combination of features
+- predefined (ASCII string, RLE todo), fully or seeded random initial states
+
 todo:
 - ~~predefined initial state~~, ~~ascii to state~~, rle to state, ~~seed~~
 - ~~unit tests~~
@@ -7,7 +17,7 @@ todo:
 - better telemetry (memory use, fps, etc)
 - ~~multicore~~
 ~~- memory use optimization (bit-packed grid)~~
-- bitGrid algs
+- bitGrid alg (simd)
 - input (sim speed, pause, step, reset)
 - webGPU grid rendering
 - benchmarking
