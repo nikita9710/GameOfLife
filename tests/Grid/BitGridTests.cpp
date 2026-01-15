@@ -1,6 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "../../src/Grid/BitGrid.h"
+#include "Config/SimulationConfig.h"
+#include "Simulation/Factory/SimulationFactory.h"
 #include "Utils/GridStateFromASCII.h"
 
 TEST_CASE("BitGrid Constructor initializes to dead") {
@@ -115,5 +117,53 @@ TEST_CASE("BitGrid Deterministic random initialization") {
         randomGridFromEmpty.RandomizeState(rng2, 0.3);
 
         REQUIRE(randomGrid == randomGridFromEmpty);
+    }
+}
+
+TEST_CASE("Bit Grid vs Dense Grid Toroidal big simulation") {
+    const int stepsNum = 10;
+    for (const int sizesToTest[] = {1, 2, 3, 10, 100, 1000}; int size : sizesToTest) {
+        auto bitConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Bit, gol::config::TickMode::SingleCore,
+                                                              gol::config::EdgeMode::Toroidal,
+                                                              gol::config::Ruleset::Conway).
+                                                              UseSeededRandomInitialState(size);
+
+        auto denseConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::SingleCore,
+                                                              gol::config::EdgeMode::Toroidal,
+                                                              gol::config::Ruleset::Conway).
+                                                              UseSeededRandomInitialState(size);
+
+        auto bitSim = gol::SimulationFactory::Create(bitConfig);
+        auto multicoreNaiveSim = gol::SimulationFactory::Create(denseConfig);
+        REQUIRE(bitSim->GetState() == multicoreNaiveSim->GetState());
+        for (int i = 0; i < stepsNum; i++) {
+            bitSim->Tick();
+            multicoreNaiveSim->Tick();
+            REQUIRE(bitSim->GetState() == multicoreNaiveSim->GetState());
+        }
+    }
+}
+
+TEST_CASE("Bit Grid vs Dense Grid Clamped big simulation") {
+    const int stepsNum = 10;
+    for (const int sizesToTest[] = {1, 2, 3, 10, 100, 1000}; int size : sizesToTest) {
+        auto bitConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Bit, gol::config::TickMode::SingleCore,
+                                                              gol::config::EdgeMode::Clamped,
+                                                              gol::config::Ruleset::Conway).
+                                                              UseSeededRandomInitialState(size);
+
+        auto denseConfig = gol::config::SimulationConfig(size, gol::config::GridMode::Dense, gol::config::TickMode::SingleCore,
+                                                              gol::config::EdgeMode::Clamped,
+                                                              gol::config::Ruleset::Conway).
+                                                              UseSeededRandomInitialState(size);
+
+        auto bitSim = gol::SimulationFactory::Create(bitConfig);
+        auto multicoreNaiveSim = gol::SimulationFactory::Create(denseConfig);
+        REQUIRE(bitSim->GetState() == multicoreNaiveSim->GetState());
+        for (int i = 0; i < stepsNum; i++) {
+            bitSim->Tick();
+            multicoreNaiveSim->Tick();
+            REQUIRE(bitSim->GetState() == multicoreNaiveSim->GetState());
+        }
     }
 }

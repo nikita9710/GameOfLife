@@ -17,8 +17,9 @@ todo:
 - better telemetry (memory use, fps, etc)
 - ~~multicore~~
 ~~- memory use optimization (bit-packed grid)~~
-- bitGrid alg (simd)
+- ~~bitGrid alg (better memory use, more efficient calculations)~~, optimize for per-word calculation
 - input (sim speed, pause, step, reset)
+- scripts to run demo
 - webGPU grid rendering
 - benchmarking
 - rules via variadic template, custom rule strings

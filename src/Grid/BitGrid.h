@@ -9,8 +9,7 @@
 namespace gol {
 class BitGrid {
 public:
-    using Word = uint64_t;
-    explicit BitGrid(const int size) : size_(size), wordsPerRow_((size + 63)/64), data_(size_ * wordsPerRow_, 0) { }
+    explicit BitGrid(const int size) : size_(size), wordsPerRow_((size + WordBitSize-1)/WordBitSize), data_(size_ * wordsPerRow_, 0) { }
 
     static BitGrid CreateFromState(int gridSize,const std::vector<Cell>& grid);
 
@@ -46,8 +45,8 @@ public:
     void SetCell(const int index, const Cell cell) {
         const int row = index / size_;
         const int col = index % size_;
-        const int word = col >> 6;
-        const int bit  = col & 63;
+        const int word = col >> WordLog2; // same as col / WordBitSize
+        const int bit  = col & (WordBitSize-1); // same as col % WordBitSize
         Word& w = data_[row * wordsPerRow_ + word];
         if (cell == Cell::Alive) {
             w |= (Word(1) << bit);
@@ -59,8 +58,8 @@ public:
     [[nodiscard]] bool IsCellAlive(const int index) const {
         const int row = index / size_;
         const int col = index % size_;
-        const int word = col >> 6;
-        const int bit  = col & 63;
+        const int word = col >> WordLog2; // same as col / WordBitSize
+        const int bit  = col & (WordBitSize-1); // same as col % WordBitSize
         return (data_[row * wordsPerRow_ + word] >> bit) & 1;
     }
 
@@ -74,6 +73,14 @@ public:
 
     [[nodiscard]] const std::vector<Word>& GetData() const {
         return data_;
+    }
+
+    [[nodiscard]] std::vector<Word>& GetData() {
+        return data_;
+    }
+
+    [[nodiscard]] int GetWordsPerRow() const {
+        return wordsPerRow_;
     }
 
     bool operator==(const BitGrid &lhs) const;
