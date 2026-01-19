@@ -12,7 +12,7 @@ struct NeighboursCounter {
 
         for (const auto&[dx, dy]: neighboursMatrix_) {
             int nx, ny;
-            if (EdgePolicy::resolve(x, y, dx, dy, size, nx, ny)) {
+            if (EdgePolicy::resolveDenseCell(x, y, dx, dy, size, nx, ny)) {
                 res += currentState.IsCellAlive(nx * size + ny);
             }
         }
