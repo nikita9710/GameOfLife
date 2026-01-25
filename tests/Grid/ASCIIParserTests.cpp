@@ -4,7 +4,8 @@
 
 TEST_CASE("ASCII to DenseGrid Valid input") {
     {
-        const auto testGrid = gol::GridStateFromASCII<gol::DenseGrid>(1, ".");
+        // will fail
+        const auto testGrid = gol::GridStateFromASCII<gol::DenseGrid>(1, "#");
         const auto expectedGrid = gol::DenseGrid::CreateFromState(1, { gol::Cell::Dead });
         REQUIRE(testGrid == expectedGrid);
     }
