@@ -3,6 +3,8 @@ project(GameOfLife)
 
 set(CMAKE_CXX_STANDARD 23)
 
+
+include(CTest)
 Include(FetchContent)
 FetchContent_Declare(
         Catch2
