@@ -3,7 +3,7 @@ noteable features:
 - multithreaded implementation (naive concurrent static separation and worker pool chunk processing)
 - heavy unit testing of all features and options
 - bit-packed grid implementation (allows much bigger grids and much less memory use, with up to 2-3x performance)
-- bit-wise SIMD processing ()
+- bit-wise SIMD processing
 - full customized runs with cli args (full info in --help todo)
 - factory class for templated simulations in runtime, allowing any combination of features
 - predefined (ASCII string, RLE todo), fully or seeded random initial states
@@ -26,5 +26,5 @@ todo:
 - comments, doxygen?
 - gui
 - gpu (cuda?)
-- ci/cd
+- ~~basic ci/cd~~, different os
 - update readme
